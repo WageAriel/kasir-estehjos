@@ -10,6 +10,8 @@ import Modal from "./views/Modal.vue";
 import Card from "./views/Card.vue";
 import Blank from "./views/Blank.vue";
 import NotFound from "./views/NotFound.vue";
+import ProductView from "./views/ProductView.vue";
+import CategoryView from "./views/CategoryView.vue";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -22,6 +24,16 @@ const routes: RouteRecordRaw[] = [
     path: "/dashboard",
     name: "Dashboard",
     component: Dashboard,
+  },
+  {
+    path: "/product",
+    name: "Product",
+    component: ProductView,
+  },
+  {
+    path: "/category",
+    name: "Category",
+    component: CategoryView,
   },
   {
     path: "/forms",
