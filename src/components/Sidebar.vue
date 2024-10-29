@@ -35,7 +35,7 @@
           </svg>
 
           <span class="mx-2 text-2xl font-semibold text-white"
-            >Dashboard Bakul</span
+            >Kasir Es Teh Jozz</span
           >
         </div>
       </div>
