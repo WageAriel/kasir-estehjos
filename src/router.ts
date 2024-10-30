@@ -14,12 +14,13 @@ import ProductView from "./views/ProductView.vue";
 import CategoryView from "./views/CategoryView.vue";
 import KasirView from "./views/KasirView.vue";
 import LandingPage from './views/LandingPage.vue' // Import komponen LandingPage
+import HomeView from "./views/Page/LandingView.vue";
 
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
     name: "LandingPage",
-    component: LandingPage,
+    component: HomeView,
     meta: { layout: "empty" },
   },
   {
