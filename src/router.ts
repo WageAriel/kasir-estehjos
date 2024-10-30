@@ -13,14 +13,21 @@ import NotFound from "./views/NotFound.vue";
 import ProductView from "./views/ProductView.vue";
 import CategoryView from "./views/CategoryView.vue";
 import KasirView from "./views/KasirView.vue";
-import LandingPage from './views/LandingPage.vue' // Import komponen LandingPage
+// Import komponen LandingPage
 import HomeView from "./views/Page/LandingView.vue";
+import About from "./views/Page/AboutView.vue";
 
 const routes: RouteRecordRaw[] = [
   {
-    path: "/",
+    path: "/home",
     name: "LandingPage",
     component: HomeView,
+    meta: { layout: "empty" },
+  },
+  {
+    path: "/about",
+    name: "about",
+    component: About,
     meta: { layout: "empty" },
   },
   {
