@@ -12,6 +12,7 @@ import Blank from "./views/Blank.vue";
 import NotFound from "./views/NotFound.vue";
 import ProductView from "./views/ProductView.vue";
 import CategoryView from "./views/CategoryView.vue";
+import KasirView from "./views/KasirView.vue";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -56,9 +57,9 @@ const routes: RouteRecordRaw[] = [
     component: Question,
   },
   {
-    path: "/ui-elements",
-    name: "UIElements",
-    component: UIElements,
+    path: "/kasir",
+    name: "kasir",
+    component: KasirView,
   },
   {
     path: "/modal",
