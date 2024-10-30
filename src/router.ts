@@ -13,10 +13,17 @@ import NotFound from "./views/NotFound.vue";
 import ProductView from "./views/ProductView.vue";
 import CategoryView from "./views/CategoryView.vue";
 import KasirView from "./views/KasirView.vue";
+import LandingPage from './views/LandingPage.vue' // Import komponen LandingPage
 
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
+    name: "LandingPage",
+    component: LandingPage,
+    meta: { layout: "empty" },
+  },
+  {
+    path: "/login",
     name: "Login",
     component: Login,
     meta: { layout: "empty" },
