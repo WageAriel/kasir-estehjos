@@ -23,9 +23,9 @@
               class="object-contain h-8 transition-transform duration-200 hover:scale-110" 
             />
           </a>
-          <a href="#login" class="px-4 py-2 border border-neutral-800 rounded hover:bg-yellow-200 text-sm"> <!-- Ukuran teks diubah menjadi text-sm -->
+          <router-link to="/dashboard" class="px-4 py-2 border border-neutral-800 rounded hover:bg-yellow-200 text-sm"> <!-- Ukuran teks diubah menjadi text-sm -->
             LOGIN
-          </a>
+          </router-link>
         </div>
       </nav>
     </header>

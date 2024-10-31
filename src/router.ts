@@ -19,7 +19,7 @@ import About from "./views/Page/AboutView.vue";
 
 const routes: RouteRecordRaw[] = [
   {
-    path: "/home",
+    path: "/",
     name: "LandingPage",
     component: HomeView,
     meta: { layout: "empty" },
