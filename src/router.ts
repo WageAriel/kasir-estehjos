@@ -17,6 +17,7 @@ import KasirView from "./views/KasirView.vue";
 import HomeView from "./views/Page/LandingView.vue";
 import About from "./views/Page/AboutView.vue";
 import pemesanan from "./views/Page/pemesananView.vue";
+import FeatureView from "./views/Page/FeaturedView.vue";
 import makanan from "./views/Page/makananView.vue";
 import minuman from "./views/Page/minumanView.vue";
 import sembako from "./views/Page/sembakoView.vue";
@@ -36,23 +37,12 @@ const routes: RouteRecordRaw[] = [
     meta: { layout: "empty" },
   },
   {
-    path: "/makanan",
-    name: "makanan",
-    component: makanan,
+    path: "/featured",
+    name: "featured",
+    component: FeatureView,
     meta: { layout: "empty" },
   },
-  {
-    path: "/minuman",
-    name: "minuman",
-    component: minuman,
-    meta: { layout: "empty" },
-  },
-  {
-    path: "/sembako",
-    name: "sembako",
-    component: sembako,
-    meta: { layout: "empty" },
-  },
+  
   {
     path: "/about",
     name: "about",

@@ -50,6 +50,11 @@
   dependencies:
     purgecss "^4.0.3"
 
+"@heroicons/vue@^2.1.5":
+  version "2.1.5"
+  resolved "https://registry.npmjs.org/@heroicons/vue/-/vue-2.1.5.tgz"
+  integrity sha512-IpqR72sFqFs55kyKfFS7tN+Ww6odFNeH/7UxycIOrlVYfj4WUGAdzQtLBnJspucSeqWFQsKM0g0YrgU655BEfA==
+
 "@jridgewell/sourcemap-codec@^1.5.0":
   version "1.5.0"
   resolved "https://registry.npmjs.org/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.5.0.tgz"
@@ -1255,7 +1260,7 @@ vue-tsc@^0.0.24:
   dependencies:
     unzipper "0.10.11"
 
-vue@^3.0.0, vue@^3.5.12, vue@3.5.12:
+vue@^3.0.0, vue@^3.5.12, "vue@>= 3", vue@3.5.12:
   version "3.5.12"
   resolved "https://registry.npmjs.org/vue/-/vue-3.5.12.tgz"
   integrity sha512-CLVZtXtn2ItBIi/zHZ0Sg1Xkb7+PU32bJJ8Bmy7ts3jxXTcbfsEfBivFYYWz1Hur+lalqGAh65Coin0r+HRUfg==

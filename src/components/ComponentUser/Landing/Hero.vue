@@ -1,7 +1,7 @@
 <template>
   <main 
     data-layername="landingPage" 
-    class="flex overflow-hidden flex-col justify-center items-center px-8 py-16 bg-yellow-400 max-md:px-5 max-md:py-10 mb-10" 
+    class="flex overflow-hidden flex-col justify-center items-center px-8 py-16 bg-[#fff600] max-md:px-5 max-md:py-10 mb-10" 
   > 
     <div class="w-full max-w-[800px] max-md:max-w-full"> 
       <div class="flex gap-5 max-md:flex-col">
@@ -46,7 +46,7 @@
             />
             <img 
               loading="lazy" 
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/11057a124c8d0a4a4de0dac8ab453823e0c41535a639494a2ba675701234f1e8?placeholderIfAbsent=true&apiKey=c8698c43222e44c9baf2ff8bdf6a77c2" 
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/s11057a124c8d0a4a4de0dac8ab453823e0c41535a639494a2ba675701234f1e8?placeholderIfAbsent=true&apiKey=c8698c43222e44c9baf2ff8bdf6a77c2" 
               alt="" 
               class="object-contain mt-32 max-w-full aspect-[1.08] w-[90px] max-md:mt-8" 
             />

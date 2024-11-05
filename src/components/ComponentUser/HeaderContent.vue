@@ -7,10 +7,10 @@
         </div>
   
         <ul class="flex gap-8 self-stretch my-auto text-lg"> <!-- Ukuran teks diubah dari text-2xl menjadi text-lg -->
-          <li><a href="/home" class="hover:text-yellow-600">HOME</a></li>
-          <li><a href="/pemesanan" class="hover:text-yellow-600">SHOP</a></li>
-          <li><a href="/about" class="hover:text-yellow-600">ABOUT US</a></li>
-          <li><a href="#contact" class="hover:text-yellow-600">CONTACT</a></li>
+          <router-link to="/" class="hover:text-yellow-600">HOME</router-link>
+          <router-link to="/pemesanan" class="hover:text-yellow-600">SHOP</router-link>
+          <router-link to="/featured" class="hover:text-yellow-600">FEATURED</router-link>
+          <router-link to="/contact" class="hover:text-yellow-600">CONTACT</router-link>
         </ul>
   
         <div class="flex items-center gap-5">
@@ -18,9 +18,9 @@
           <a href="#cart" aria-label="Shopping Cart" class="flex items-center">
             <img 
               loading="lazy" 
-              src="@/assets/images/shopping-cart.png" 
+              src="@/assets/images/Tas.png" 
               alt="Cart Icon" 
-              class="object-contain h-8 transition-transform duration-200 hover:scale-110" 
+              class="object-contain h-9 mt-[10px] transition-transform duration-200 hover:scale-110" 
             />
           </a>
           <router-link to="/dashboard" class="px-4 py-2 border border-neutral-800 rounded hover:bg-yellow-200 text-sm"> <!-- Ukuran teks diubah menjadi text-sm -->

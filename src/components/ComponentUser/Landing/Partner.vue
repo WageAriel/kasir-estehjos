@@ -7,8 +7,8 @@
       Find our partners and their locations on Google Maps.
     </p>
     
-    <div class="mt-10 w-full max-w-screen-lg">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 justify-center">
+    <div class="mt-10 w-full max-w-screen-lg flex justify-center">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 justify-center">
         <!-- Partner 1 -->
         <div class="flex flex-col items-center w-full max-w-[250px] bg-white rounded-lg shadow-md p-4">
           <div class="flex bg-yellow-300 w-full h-[250px] rounded-md" role="img" aria-label="Partner image"></div>
