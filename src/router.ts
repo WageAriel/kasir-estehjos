@@ -16,12 +16,41 @@ import KasirView from "./views/KasirView.vue";
 // Import komponen LandingPage
 import HomeView from "./views/Page/LandingView.vue";
 import About from "./views/Page/AboutView.vue";
+import pemesanan from "./views/Page/pemesananView.vue";
+import makanan from "./views/Page/makananView.vue";
+import minuman from "./views/Page/minumanView.vue";
+import sembako from "./views/Page/sembakoView.vue";
+
 
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
     name: "LandingPage",
     component: HomeView,
+    meta: { layout: "empty" },
+  },
+  {
+    path: "/pemesanan",
+    name: "pemesanan",
+    component: pemesanan,
+    meta: { layout: "empty" },
+  },
+  {
+    path: "/makanan",
+    name: "makanan",
+    component: makanan,
+    meta: { layout: "empty" },
+  },
+  {
+    path: "/minuman",
+    name: "minuman",
+    component: minuman,
+    meta: { layout: "empty" },
+  },
+  {
+    path: "/sembako",
+    name: "sembako",
+    component: sembako,
     meta: { layout: "empty" },
   },
   {

@@ -8,7 +8,7 @@
   
         <ul class="flex gap-8 self-stretch my-auto text-lg"> <!-- Ukuran teks diubah dari text-2xl menjadi text-lg -->
           <li><a href="/home" class="hover:text-yellow-600">HOME</a></li>
-          <li><a href="#shop" class="hover:text-yellow-600">SHOP</a></li>
+          <li><a href="/pemesanan" class="hover:text-yellow-600">SHOP</a></li>
           <li><a href="/about" class="hover:text-yellow-600">ABOUT US</a></li>
           <li><a href="#contact" class="hover:text-yellow-600">CONTACT</a></li>
         </ul>
