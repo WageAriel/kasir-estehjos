@@ -1,7 +1,7 @@
 <template>
   <section class="flex flex-col items-center py-10 bg-gray-50 rounded-lg shadow-lg">
     <h1 class="text-4xl font-semibold text-green-800 mb-8 text-center">
-      Feedback Corner
+      Feedback Pengguna 
     </h1>
     <div class="relative w-full max-w-6xl overflow-hidden">
       <!-- Container for the feedback cards -->
@@ -33,19 +33,19 @@ export default {
     return {
       activeIndex: 0, // controls the index of the visible feedback cards
       feedbacks: [
-        { name: 'Emily Wilson', text: 'The customer experience was exceptional from start to finish. The website is user-friendly, the checkout process was smooth, and the clothes I ordered fit perfectly. I am beyond satisfied!' },
-        { name: 'Sarah Thompson', text: 'I absolutely love the quality and style of the clothing I purchased from this website. Customer service was outstanding, and I received my order quickly. Highly recommended!' },
-        { name: 'Olivia Martinez', text: 'I had a great experience shopping on this website. The clothes I bought are fashionable and comfortable. Highly satisfied!' },
-        { name: 'John Doe', text: 'Great selection of products and fast delivery. I am very happy with my purchase. Will shop again!' },
-        { name: 'Jane Smith', text: 'The ordering process was seamless, and the product quality is top-notch. I will definitely recommend this to my friends!' },
-        { name: 'Michael Brown', text: 'Amazing service and great quality! Will definitely buy again.' },
+        { name: 'Agung', text: 'The customer experience was exceptional from start to finish. The website is user-friendly, the checkout process was smooth, and the clothes I ordered fit perfectly. I am beyond satisfied!' },
+        { name: 'Anita', text: 'I absolutely love the quality and style of the clothing I purchased from this website. Customer service was outstanding, and I received my order quickly. Highly recommended!' },
+        { name: 'Michael', text: 'I had a great experience shopping on this website. The clothes I bought are fashionable and comfortable. Highly satisfied!' },
+        { name: 'Wage', text: 'Great selection of products and fast delivery. I am very happy with my purchase. Will shop again!' },
+        { name: 'Boyolali', text: 'The ordering process was seamless, and the product quality is top-notch. I will definitely recommend this to my friends!' },
+        { name: 'Sondokoro', text: 'Amazing service and great quality! Will definitely buy again.' },
       ],
     };
   },
   methods: {
     next() {
       // Prevent scrolling past the last group of cards
-      if (this.activeIndex < Math.ceil(this.feedbacks.length / 3) - 1) {
+      if (this.activeIndex < Math.ceil(this.feedbacks.length / 2) - 1) {
         this.activeIndex++;
       }
     },

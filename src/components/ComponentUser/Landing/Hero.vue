@@ -12,13 +12,13 @@
               data-layername="discoverAndFindYourOwnFashion" 
               class="self-stretch text-5xl font-bold text-green-900 max-md:max-w-full max-md:text-3xl"
             >
-              Discover and Find Your Own Fashion!
+              Mari belanja di Toko Sumber Berkat!
             </h1>
             <p 
               data-layername="exploreOurCuratedCollectionOfStylishClothingAndAccessoriesTailoredToYourUniqueTaste" 
               class="mt-4 text-xl text-green-700 leading-[30px] max-md:max-w-full"
             >
-              Explore our curated collection of stylish clothing and accessories tailored to your unique taste.
+              Toko terlengkap se antero Mojosongo.
             </p>
             <button 
               data-layername="exploreNow" 

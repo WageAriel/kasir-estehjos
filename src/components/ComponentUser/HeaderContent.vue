@@ -14,15 +14,16 @@
         </ul>
   
         <div class="flex items-center gap-5">
-          <!-- Cart Icon -->
-          <a href="#cart" aria-label="Shopping Cart" class="flex items-center">
-            <img 
-              loading="lazy" 
-              src="@/assets/images/Tas.png" 
-              alt="Cart Icon" 
-              class="object-contain h-9 mt-[10px] transition-transform duration-200 hover:scale-110" 
-            />
-          </a>
+            <!-- Cart Icon -->
+            <router-link to="/cart" aria-label="Shopping Cart" class="flex items-center">
+              <img 
+                loading="lazy" 
+                src="@/assets/images/Tas.png" 
+                alt="Cart Icon" 
+                class="object-contain h-9 mt-[10px] transition-transform duration-200 hover:scale-110" 
+              />
+            </router-link>
+
           <router-link to="/dashboard" class="px-4 py-2 border border-neutral-800 rounded hover:bg-yellow-200 text-sm"> <!-- Ukuran teks diubah menjadi text-sm -->
             LOGIN
           </router-link>

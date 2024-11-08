@@ -17,7 +17,7 @@
           class="text-lg uppercase"
           :class="{'text-green-900': activeCategory === 'Sale', 'text-zinc-700': activeCategory !== 'Sale'}"
         >
-          Sale
+          Dijual
         </h2>
         <div v-if="activeCategory === 'Sale'" class="shrink-0 h-0.5 w-full border-b-2 border-green-900"></div>
       </div>
@@ -28,7 +28,7 @@
           class="text-lg uppercase"
           :class="{'text-green-900': activeCategory === 'Hot', 'text-zinc-700': activeCategory !== 'Hot'}"
         >
-          HOT
+          Terlaris
         </h2>
         <div v-if="activeCategory === 'Hot'" class="shrink-0 h-0.5 w-full border-b-2 border-green-900"></div>
       </div>
@@ -39,7 +39,7 @@
           class="text-lg uppercase"
           :class="{'text-green-900': activeCategory === 'New Arrivals', 'text-zinc-700': activeCategory !== 'New Arrivals'}"
         >
-          New Arrivals
+          Promo
         </h2>
         <div v-if="activeCategory === 'New Arrivals'" class="shrink-0 h-0.5 w-full border-b-2 border-green-900"></div>
       </div>
@@ -50,7 +50,7 @@
           class="text-lg uppercase"
           :class="{'text-green-900': activeCategory === 'Accessories', 'text-zinc-700': activeCategory !== 'Accessories'}"
         >
-          Accessories
+          Habis
         </h2>
         <div v-if="activeCategory === 'Accessories'" class="shrink-0 h-0.5 w-full border-b-2 border-green-900"></div>
       </div>
@@ -86,14 +86,14 @@ import { ref, computed } from 'vue';
 
 // Data produk
 const products = ref([
-  { id: 1, name: 'Spread Collar Shirt', price: '$48.99', category: 'Sale', image: '@/assets/images/spread-collar-shirt.jpg' },
-  { id: 2, name: 'White Solid Formal Shirt', price: '$39.00', category: 'Sale', image: '@/assets/images/white-solid-formal-shirt.jpg' },
-  { id: 3, name: 'Shine On Me Blouse', price: '$42.99', category: 'Hot', image: '@/assets/images/shine-on-me-blouse.jpg' },
-  { id: 4, name: 'Gray Solid Padded Jacket', price: '$32.99', category: 'Hot', image: '@/assets/images/gray-solid-padded-jacket.jpg' },
-  { id: 5, name: 'Printed Loose T-shirt', price: '$39.99', category: 'New Arrivals', image: '@/assets/images/printed-loose-t-shirt.jpg' },
-  { id: 6, name: 'Summer Wind Crop Shirt', price: '$39.95', category: 'New Arrivals', image: '@/assets/images/summer-wind-crop-shirt.jpg' },
-  { id: 7, name: 'Tailored Jacket', price: '$46.00', category: 'Accessories', image: '@/assets/images/tailored-jacket.jpg' },
-  { id: 8, name: 'Solid Round Neck T-shirt', price: '$36.00', category: 'Accessories', image: '@/assets/images/solid-round-neck-t-shirt.jpg' },
+  { id: 1, name: 'Mie', price: 'Rp 3000', category: 'Sale', image: '  ' },
+  { id: 2, name: 'Mie', price: 'Rp 3000', category: 'Sale', image: '  ' },
+  { id: 3, name: 'Mie', price: 'Rp 3000', category: 'Sale', image: '  ' },
+  { id: 4, name: 'Mie', price: 'Rp 3000', category: 'Sale', image: '  '  },
+  { id: 5, name: 'Mie', price: 'Rp 3000', category: 'Sale', image: '  ' },
+  { id: 6, name: 'Mie', price: 'Rp 3000', category: 'Sale', image: '  ' },
+  { id: 7, name: 'Mie', price: 'Rp 3000', category: 'Sale', image: '  ' },
+  { id: 8, name: 'Mie', price: 'Rp 3000', category: 'Sale', image: '  ' },
 ]);
 
 // State kategori aktif

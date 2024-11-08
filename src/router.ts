@@ -21,6 +21,7 @@ import FeatureView from "./views/Page/FeaturedView.vue";
 import makanan from "./views/Page/makananView.vue";
 import minuman from "./views/Page/minumanView.vue";
 import sembako from "./views/Page/sembakoView.vue";
+import Cart from "./views/Page/CartView.vue";
 
 
 const routes: RouteRecordRaw[] = [
@@ -43,6 +44,18 @@ const routes: RouteRecordRaw[] = [
     meta: { layout: "empty" },
   },
   
+  {
+    path: "/about",
+    name: "about",
+    component: About,
+    meta: { layout: "empty" },
+  },
+  {
+    path: "/cart",
+    name: "cart",
+    component: Cart,
+    meta: { layout: "empty" },
+  },
   {
     path: "/about",
     name: "about",
