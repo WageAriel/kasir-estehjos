@@ -10,7 +10,6 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id('transaction_id');
             $table->dateTime('transaction_date');
-            $table->unsignedBigInteger('cashier_id');
             $table->string('total_amount');
             $table->string('payment_method');
             $table->timestamps();

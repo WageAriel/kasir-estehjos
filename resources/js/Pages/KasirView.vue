@@ -20,14 +20,14 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { mdiMagnify } from '@mdi/js'
-import SectionTitle from '@/components/SectionTitle.vue'
+import SectionTitle from '@/Components/SectionTitle.vue'
 import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue'
-import CardBox from '@/components/CardBox.vue'
-import FormField from '@/components/FormField.vue'
-import BaseButton from '@/components/BaseButton.vue'
-import ModalTransaksi from '@/components/Kasir/ModalTransaksi.vue'
-import TableKasir from '@/components/Kasir/TableKasir.vue'
-import FormSearch from '@/components/Kasir/FormSearch.vue'
+import CardBox from '@/Components/CardBox.vue'
+import FormField from '@/Components/FormField.vue'
+import BaseButton from '@/Components/BaseButton.vue'
+import ModalTransaksi from '@/Components/Kasir/ModalTransaksi.vue'
+import TableKasir from '@/Components/Kasir/TableKasir.vue'
+import FormSearch from '@/Components/Kasir/FormSearch.vue'
 
 const form = reactive({
   search: '',

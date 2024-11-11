@@ -1,6 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '@/Pages/HomeView.vue'
-import KasirView from '@/Pages/KasirView.vue'
 
 const routes = [
   {
@@ -57,7 +56,7 @@ const routes = [
     },
     path: '/kasir',
     name: 'kasir',
-    component: KasirView
+    component: () => import('@/Pages/KasirView.vue')
   }
 ];
 
