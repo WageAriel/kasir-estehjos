@@ -12,7 +12,7 @@
                             class="object-cover absolute inset-0 size-full" />
                         <div
                             class="flex relative flex-col items-start mb-0 max-w-full min-h-[180px] w-[129px] max-md:mb-2.5">
-                            <div v-if="item.sale" class="gap-2.5 self-stretch px-4 py-1.5 bg-orange-600 min-h-[32px]">
+                            <div v-if="item.sale" class="gap-2.5 self-stretch px-4 py-1.5 bg-yellow-600 min-h-[32px]">
                                 Sale
                             </div>
                             <div v-if="item.bestseller"
