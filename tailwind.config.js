@@ -15,6 +15,9 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            zIndex: {
+                '-1': '-1', // Menambahkan -1 sebagai nilai z-index kustom
+            },
         },
     },
 
