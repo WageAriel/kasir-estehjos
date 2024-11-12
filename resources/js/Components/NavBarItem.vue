@@ -1,12 +1,16 @@
 <script setup>
 import { mdiChevronUp, mdiChevronDown } from '@mdi/js'
-import { RouterLink } from 'vue-router'
+import { Link } from '@inertiajs/vue3'
+// import { RouterLink } from 'vue-router'
 import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
-import { useMainStore } from '@/stores/main.js'
+import { usePage } from '@inertiajs/vue3'
+// import { useMainStore } from '@/stores/main.js'
 import BaseIcon from '@/components/BaseIcon.vue'
 import UserAvatarCurrentUser from '@/components/UserAvatarCurrentUser.vue'
 import NavBarMenuList from '@/components/NavBarMenuList.vue'
 import BaseDivider from '@/components/BaseDivider.vue'
+
+const itemHref = computed(() => (props.item.route ? route(props.item.route) : props.item.href))
 
 const props = defineProps({
   item: {
@@ -22,8 +26,8 @@ const is = computed(() => {
     return 'a'
   }
 
-  if (props.item.to) {
-    return RouterLink
+  if (props.item.route) {
+    return Link
   }
 
   return 'div'
@@ -45,7 +49,7 @@ const componentClass = computed(() => {
 })
 
 const itemLabel = computed(() =>
-  props.item.isCurrentUser ? useMainStore().userName : props.item.label
+  props.item.isCurrentUser ? usePage().props.auth.user.name : props.item.label
 )
 
 const isDropdownActive = ref(false)

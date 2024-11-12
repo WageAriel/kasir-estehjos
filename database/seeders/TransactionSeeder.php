@@ -11,7 +11,7 @@ class TransactionSeeder extends Seeder
     {
         Transaction::create([
             'transaction_date' => now(),
-            'cashier_id' => 1,
+            // 'cashier_id' => 1,
             'total_amount' => '10000',
             'payment_method' => 'Cash'
         ]);

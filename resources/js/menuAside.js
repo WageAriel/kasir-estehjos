@@ -1,47 +1,86 @@
 import {
+  mdiAccountCircle,
   mdiMonitor,
+  mdiGithub,
+  mdiLock,
+  mdiAlertCircle,
   mdiSquareEditOutline,
+  mdiTable,
   mdiViewList,
+  mdiTelevisionGuide,
   mdiResponsive,
-  mdiBankTransfer,
+  mdiPalette,
+  mdiReact
 } from '@mdi/js'
 
 export default [
   {
-    to: '/dashboard',
+    route: 'dashboard',
     icon: mdiMonitor,
     label: 'Dashboard'
   },
   {
-    to: '/produk',
-    icon: mdiMonitor,
-    label: 'Produk'
+    route: 'produk',
+    label: 'Produk',
+    icon: mdiTable
   },
   {
-    to: '/kategori',
-    label: 'Kategori',
+    to: '/forms',
+    label: 'Forms',
     icon: mdiSquareEditOutline
   },
   {
-    label: 'Transaksi',
+    to: '/ui',
+    label: 'UI',
+    icon: mdiTelevisionGuide
+  },
+  {
+    to: '/responsive',
+    label: 'Responsive',
+    icon: mdiResponsive
+  },
+  {
+    to: '/',
+    label: 'Styles',
+    icon: mdiPalette
+  },
+  {
+    to: '/profile',
+    label: 'Profile',
+    icon: mdiAccountCircle
+  },
+  {
+    to: '/login',
+    label: 'Login',
+    icon: mdiLock
+  },
+  {
+    to: '/error',
+    label: 'Error',
+    icon: mdiAlertCircle
+  },
+  {
+    label: 'Dropdown',
     icon: mdiViewList,
     menu: [
       {
-        to: '/transaction',
-        label: 'Transaction',
-        icon: mdiBankTransfer
+        label: 'Item One'
       },
       {
-        to: '/transaction-detail',
-        label: 'Detail',
-        icon: mdiBankTransfer
+        label: 'Item Two'
       }
     ]
   },
-  
   {
-    to: '/kasir',
-    label: 'Kasir',
-    icon: mdiResponsive
+    href: 'https://github.com/justboil/admin-one-vue-tailwind',
+    label: 'GitHub',
+    icon: mdiGithub,
+    target: '_blank'
   },
+  {
+    href: 'https://github.com/justboil/admin-one-react-tailwind',
+    label: 'React version',
+    icon: mdiReact,
+    target: '_blank'
+  }
 ]

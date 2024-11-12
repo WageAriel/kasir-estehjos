@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
-import { RouterLink } from 'vue-router'
+import { Link } from '@inertiajs/vue3'
+// import { RouterLink } from 'vue-router'
 import { getButtonColor } from '@/colors.js'
 import BaseIcon from '@/components/BaseIcon.vue'
 
@@ -25,8 +26,8 @@ const props = defineProps({
     type: String,
     default: null
   },
-  to: {
-    type: [String, Object],
+  routeName: {
+    type: String,
     default: null
   },
   type: {
@@ -53,8 +54,8 @@ const is = computed(() => {
     return props.as
   }
 
-  if (props.to) {
-    return RouterLink
+  if (props.routeName) {
+    return Link
   }
 
   if (props.href) {
@@ -110,9 +111,8 @@ const componentClass = computed(() => {
   <component
     :is="is"
     :class="componentClass"
-    :href="href"
+    :href="routeName ? route(routeName) : href"
     :type="computedType"
-    :to="to"
     :target="target"
     :disabled="disabled"
   >

@@ -15,7 +15,7 @@ class CreateTransactionsTable extends Migration
             $table->timestamps();
 
             // Foreign key
-            $table->foreign('cashier_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('cashier_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
