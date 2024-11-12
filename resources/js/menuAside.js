@@ -25,40 +25,26 @@ export default [
     icon: mdiTable
   },
   {
-    to: '/forms',
-    label: 'Forms',
-    icon: mdiSquareEditOutline
+    route: 'kasir',
+    label: 'Kasir',
+    icon: mdiTable
   },
   {
-    to: '/ui',
-    label: 'UI',
-    icon: mdiTelevisionGuide
+    route: 'kategori',
+    label: 'Kategori',
+    icon: mdiTable
   },
   {
-    to: '/responsive',
-    label: 'Responsive',
-    icon: mdiResponsive
+    route: 'transaction',
+    label: 'Transaction',
+    icon: mdiTable
   },
   {
-    to: '/',
-    label: 'Styles',
-    icon: mdiPalette
+    route: 'transactionDetail',
+    label: 'Transaction Detail',
+    icon: mdiTable
   },
-  {
-    to: '/profile',
-    label: 'Profile',
-    icon: mdiAccountCircle
-  },
-  {
-    to: '/login',
-    label: 'Login',
-    icon: mdiLock
-  },
-  {
-    to: '/error',
-    label: 'Error',
-    icon: mdiAlertCircle
-  },
+ 
   {
     label: 'Dropdown',
     icon: mdiViewList,
