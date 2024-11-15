@@ -1,58 +1,28 @@
 <script setup>
-import { reactive } from 'vue'
-import { mdiBallotOutline,mdiFood } from '@mdi/js'
-import SectionMain from '@/Components/SectionMain.vue'
-import CardBox from '@/Components/CardBox.vue'
-import FormField from '@/Components/FormField.vue'
-import FormControl from '@/Components/FormControl.vue'
-import BaseButton from '@/Components/BaseButton.vue'
-import BaseButtons from '@/Components/BaseButtons.vue'
-import LayoutAuthenticated from '@/Layouts/LayoutAuthenticated.vue'
-import SectionTitleLineWithButton from '@/Components/SectionTitleLineWithButton.vue'
-import TableSampleClients from '@/Components/TableSampleClients.vue'
+import { ref } from 'vue';
+import { usePage } from '@inertiajs/vue3';
+import { mdiBallotOutline } from '@mdi/js';
+import SectionMain from '@/Components/SectionMain.vue';
+import CardBox from '@/Components/CardBox.vue';
+import FormKategori from '@/Components/Kategori/FormKategori.vue';
+import LayoutAuthenticated from '@/Layouts/LayoutAuthenticated.vue';
+import SectionTitleLineWithButton from '@/Components/SectionTitleLineWithButton.vue';
+import TableKategori from '@/Components/Kategori/TableKategori.vue';
 
-const selectOptions = [
-  { id: 1, label: 'Makanan' },
-  { id: 2, label: 'Minuman' },
-  { id: 3, label: 'Sembako' }
-]
-
-const form = reactive({
-  produk: 'Chitato',
-  phone: '',
-  department: selectOptions[0],
-  question: ''
-})
-
-const submit = () => {
-  // Handle form submission
-}
-
+// Access props using usePage and set a default value for kategori
+const { props } = usePage();
+const kategoriData = ref(props.kategori || []);
 </script>
 
 <template>
   <LayoutAuthenticated>
     <SectionMain>
-      <SectionTitleLineWithButton :icon="mdiBallotOutline" title="Forms Kategori" main/>
-
-      <CardBox form @submit.prevent="submit">
-        <FormField label="Nama Kategori" >
-          <FormControl v-model="form.name" :icon="mdiFood  " placeholder="Chitato"/>
-        </FormField>
-
-        <template #footer>
-          <BaseButtons>
-            <BaseButton type="submit" color="info" label="Submit" />
-            <BaseButton type="reset" color="info" outline label="Reset" />
-          </BaseButtons>
-        </template>
-      </CardBox>
-
-      <SectionTitleLineWithButton :icon="mdiBallotOutline" title="Table  Produk" main/>
-
-
-          <CardBox class="mb-6" has-table>
-        <TableSampleClients checkable />
+      <SectionTitleLineWithButton :icon="mdiBallotOutline" title="Forms Kategori" main />
+      <FormKategori/>
+      <SectionTitleLineWithButton class="mt-5" :icon="mdiBallotOutline" title="Table Kategori" main />
+      <CardBox class="mb-6" has-table>
+        <!-- Pass kategori data as prop to TableKategori -->
+        <TableKategori :kategori="kategoriData" />
       </CardBox>
     </SectionMain>
   </LayoutAuthenticated>
