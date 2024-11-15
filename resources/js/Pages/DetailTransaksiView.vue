@@ -9,9 +9,9 @@
     import {
         defineProps
     } from 'vue'
-    
+
     const props = defineProps({
-        transaksi: {
+        detail: {
             type: Array,
             required: true,
         },
@@ -22,23 +22,25 @@
 <template>
     <LayoutAuthenticated>
         <SectionMain>
-            <SectionTitleLineWithButton :icon="mdiBallotOutline" title="Transaksi" main />
+            <SectionTitleLineWithButton :icon="mdiBallotOutline" title="Detail Transaksi" main />
             <CardBox class="mb-6" has-table>
                 <table class="min-w-full">
                     <thead>
                         <tr>
-                            <th>Transaksi ID</th>
-                            <th>Transaksi Date</th>
-                            <th>Total Amount</th>
-                            <th>Payment Method</th>
+                            <th>Id Product</th>
+                            <th>Jumlah Produk</th>
+                            <th>Subtotal</th>
+                            <th>Kembalian</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="transaksi in transaksi" :key="transaksi.id">
-                            <td>{{ transaksi.transaksi_id }}</td>
-                            <td>{{ transaksi.tanggal_transaksi }}</td>
-                            <td>{{ transaksi.total_jumlah }}</td>
-                            <td>{{ transaksi.metode_pembayaran }}</td>
+                        <tr v-for="detail in detail" :key="detail.id">
+                            <td>{{ detail.detail_id }}</td>
+                            <td>{{ detail.transaksi_id }}</td>
+                            <td>{{ detail.produk_id }}</td>
+                            <td>{{ detail.jumlah }}</td>
+                            <td>{{ detail.subtotal }}</td>
+                            <td>{{ detail.kembali }}</td>
                         </tr>
                     </tbody>
                 </table>

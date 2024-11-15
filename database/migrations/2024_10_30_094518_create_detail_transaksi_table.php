@@ -13,7 +13,7 @@ class CreateDetailTransaksiTable extends Migration
             $table->unsignedBigInteger('produk_id');
             $table->integer('jumlah');
             $table->string('subtotal');
-            $table->string('kembali');
+            $table->string('kembalian');
             $table->timestamps();
 
             // Foreign keys

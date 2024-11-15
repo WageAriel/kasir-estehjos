@@ -12,47 +12,47 @@
     <!-- Navigation Items -->
     <nav class="flex flex-row gap-x-10 items-center mt-8">
       <!-- "SALE" Section with underline -->
-      <div class="flex flex-col items-center cursor-pointer" @click="changeCategory('Sale')">
+      <div class="flex flex-col items-center cursor-pointer" @click="changeKategori('Sale')">
         <h2 
           class="text-lg uppercase"
-          :class="{'text-green-900': activeCategory === 'Sale', 'text-zinc-700': activeCategory !== 'Sale'}"
+          :class="{'text-green-900': activeKategori === 'Sale', 'text-zinc-700': activeKategori !== 'Sale'}"
         >
           Dijual
         </h2>
-        <div v-if="activeCategory === 'Sale'" class="shrink-0 h-0.5 w-full border-b-2 border-green-900"></div>
+        <div v-if="activeKategori === 'Sale'" class="shrink-0 h-0.5 w-full border-b-2 border-green-900"></div>
       </div>
 
       <!-- "HOT" Section with underline -->
-      <div class="flex flex-col items-center cursor-pointer" @click="changeCategory('Hot')">
+      <div class="flex flex-col items-center cursor-pointer" @click="changeKategori('Hot')">
         <h2 
           class="text-lg uppercase"
-          :class="{'text-green-900': activeCategory === 'Hot', 'text-zinc-700': activeCategory !== 'Hot'}"
+          :class="{'text-green-900': activeKategori === 'Hot', 'text-zinc-700': activeKategori !== 'Hot'}"
         >
           Terlaris
         </h2>
-        <div v-if="activeCategory === 'Hot'" class="shrink-0 h-0.5 w-full border-b-2 border-green-900"></div>
+        <div v-if="activeKategori === 'Hot'" class="shrink-0 h-0.5 w-full border-b-2 border-green-900"></div>
       </div>
 
       <!-- "New Arrivals" Section with underline -->
-      <div class="flex flex-col items-center cursor-pointer" @click="changeCategory('New Arrivals')">
+      <div class="flex flex-col items-center cursor-pointer" @click="changeKategori('New Arrivals')">
         <h2 
           class="text-lg uppercase"
-          :class="{'text-green-900': activeCategory === 'New Arrivals', 'text-zinc-700': activeCategory !== 'New Arrivals'}"
+          :class="{'text-green-900': activeKategori === 'New Arrivals', 'text-zinc-700': activeKategori !== 'New Arrivals'}"
         >
           Promo
         </h2>
-        <div v-if="activeCategory === 'New Arrivals'" class="shrink-0 h-0.5 w-full border-b-2 border-green-900"></div>
+        <div v-if="activeKategori === 'New Arrivals'" class="shrink-0 h-0.5 w-full border-b-2 border-green-900"></div>
       </div>
       
       <!-- "Accessories" Section with underline -->
-      <div class="flex flex-col items-center cursor-pointer" @click="changeCategory('Accessories')">
+      <div class="flex flex-col items-center cursor-pointer" @click="changeKategori('Accessories')">
         <h2 
           class="text-lg uppercase"
-          :class="{'text-green-900': activeCategory === 'Accessories', 'text-zinc-700': activeCategory !== 'Accessories'}"
+          :class="{'text-green-900': activeKategori === 'Accessories', 'text-zinc-700': activeKategori !== 'Accessories'}"
         >
           Habis
         </h2>
-        <div v-if="activeCategory === 'Accessories'" class="shrink-0 h-0.5 w-full border-b-2 border-green-900"></div>
+        <div v-if="activeKategori === 'Accessories'" class="shrink-0 h-0.5 w-full border-b-2 border-green-900"></div>
       </div>
     </nav>
 
@@ -62,7 +62,7 @@
       <div class="grid grid-cols-4 gap-5 justify-center max-w-6xl mx-auto max-md:grid-cols-2"> 
         <!-- Mengatur grid menjadi 4 kolom pada layar besar dan 2 kolom pada layar kecil -->
         
-        <!-- Product Cards filtered by category -->
+        <!-- Product Cards filtered by Kategori -->
         <article
           v-for="product in filteredProducts"
           :key="product.id"
@@ -86,32 +86,32 @@ import { ref, computed } from 'vue';
 
 // Data produk
 const products = ref([
-  { id: 1, name: 'Mie', price: 'Rp 3000', category: 'Sale', image: '  ' },
-  { id: 2, name: 'Mie', price: 'Rp 3000', category: 'Sale', image: '  ' },
-  { id: 3, name: 'Mie', price: 'Rp 3000', category: 'Sale', image: '  ' },
-  { id: 4, name: 'Mie', price: 'Rp 3000', category: 'Sale', image: '  '  },
-  { id: 5, name: 'Mie', price: 'Rp 3000', category: 'Sale', image: '  ' },
-  { id: 6, name: 'Mie', price: 'Rp 3000', category: 'Sale', image: '  ' },
-  { id: 7, name: 'Mie', price: 'Rp 3000', category: 'Sale', image: '  ' },
-  { id: 8, name: 'Mie', price: 'Rp 3000', category: 'Sale', image: '  ' },
+  { id: 1, name: 'Mie', price: 'Rp 3000', Kategori: 'Sale', image: '  ' },
+  { id: 2, name: 'Mie', price: 'Rp 3000', Kategori: 'Sale', image: '  ' },
+  { id: 3, name: 'Mie', price: 'Rp 3000', Kategori: 'Sale', image: '  ' },
+  { id: 4, name: 'Mie', price: 'Rp 3000', Kategori: 'Sale', image: '  '  },
+  { id: 5, name: 'Mie', price: 'Rp 3000', Kategori: 'Sale', image: '  ' },
+  { id: 6, name: 'Mie', price: 'Rp 3000', Kategori: 'Sale', image: '  ' },
+  { id: 7, name: 'Mie', price: 'Rp 3000', Kategori: 'Sale', image: '  ' },
+  { id: 8, name: 'Mie', price: 'Rp 3000', Kategori: 'Sale', image: '  ' },
 ]);
 
 // State kategori aktif
-const activeCategory = ref('Sale');
+const activeKategori = ref('Sale');
 
 // Method untuk mengganti kategori
-const changeCategory = (category) => {
-  activeCategory.value = category;
+const changeKategori = (Kategori) => {
+  activeKategori.value = Kategori;
 };
 
 // Filter produk berdasarkan kategori aktif
 const filteredProducts = computed(() => {
   // Jika kategori aktif "Sale", tampilkan semua produk
-  if (activeCategory.value === 'Sale') {
+  if (activeKategori.value === 'Sale') {
     return products.value;
   }
   // Jika tidak, tampilkan produk berdasarkan kategori yang dipilih
-  return products.value.filter(product => product.category === activeCategory.value);
+  return products.value.filter(product => product.Kategori === activeKategori.value);
 });
 </script>
 

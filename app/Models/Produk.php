@@ -7,17 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Produk extends Model
 {
-    use HasFactory;
 
-    protected $table = 'produk';
-    protected $primaryKey = 'produk_id';
-
-    protected $fillable = [
-        'kategori',
-    ];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 }
