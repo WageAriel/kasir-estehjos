@@ -44,8 +44,8 @@ export default [{
             icon: mdiTable
         },
         {
-            route: 'transactionDetail',
-            label: 'Transaction Detail',
+            route: 'detail-transaksi',
+            label: 'Detail Transaksi',
             icon: mdiTable
         },
         ]

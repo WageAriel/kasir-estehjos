@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'user',
         ]);
         $this->call([
-            // KategoriSeeder::class,
+            KategoriSeeder::class,
             // ProdukSeeder::class,
             TransaksiSeeder::class,
             // DetailTransaksiSeeder::class,

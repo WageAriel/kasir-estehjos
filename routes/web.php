@@ -34,9 +34,9 @@ Route::get('/dashboard/transaksi', function () {
     return Inertia::render('TransaksiView');
   })->middleware(['auth', 'verified'])->name('transaksi');
 
-Route::get('/dashboard/transaction-detail', function () {
-    return Inertia::render('TransactionDetailView');
-  })->middleware(['auth', 'verified'])->name('transactionDetail');
+Route::get('/dashboard/detail-transaksi', function () {
+    return Inertia::render('DetailTransaksiView');
+  })->middleware(['auth', 'verified'])->name('detailTransaksi');
 
 //   Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return Inertia::render('Home');
@@ -50,3 +50,4 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 require __DIR__.'/transaksiRoute.php';
+require __DIR__.'/detailTransaksiRoute.php';
