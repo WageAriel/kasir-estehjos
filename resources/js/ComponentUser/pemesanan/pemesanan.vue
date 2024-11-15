@@ -65,7 +65,7 @@ import Minuman from '@/ComponentUser/pemesanan/Minuman.vue';
 import { ChevronDownIcon } from '@heroicons/vue/24/solid';
 
 export default defineComponent({
-  components: {
+  Components: {
     Sembako,
     Minuman
   },

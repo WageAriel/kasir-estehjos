@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { Link } from '@inertiajs/vue3'
 // import { RouterLink } from 'vue-router'
 import { getButtonColor } from '@/colors.js'
-import BaseIcon from '@/components/BaseIcon.vue'
+import BaseIcon from '@/Components/BaseIcon.vue'
 
 const props = defineProps({
   label: {

@@ -1,4 +1,4 @@
-@layer components {
+@layer Components {
   .style-basic:not(.dark) {
     .aside {
       @apply bg-gray-800;

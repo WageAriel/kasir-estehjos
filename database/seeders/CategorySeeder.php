@@ -3,14 +3,14 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Category;
+use App\Models\Kategori;
 
-class CategorySeeder extends Seeder
+class KategoriSeeder extends Seeder
 {
     public function run()
     {
-        Category::create(['category_name' => 'Beverages']);
-        Category::create(['category_name' => 'Snacks']);
-        Category::create(['category_name' => 'Desserts']);
+        Kategori::create(['kategori_name' => 'Makanan Berat']);
+        Kategori::create(['kategori_name' => 'Makanan Ringan']);
+        Kategori::create(['kategori_name' => 'Makanan Penutup']);
     }
 }
