@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Models\DetailTransaksi;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Redirect;
 
 class DetailTransaksiController extends Controller
 {
-    public function DetailTransaksi()
+    public function getAllDetail()
     {
         // Ambil semua data transaksi dari database
         $detail = DetailTransaksi::all();

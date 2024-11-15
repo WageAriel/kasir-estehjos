@@ -42,13 +42,13 @@ Route::get('/dashboard/kasir', function () {
   ->middleware(['auth', 'verified'])
   ->name('kategori.update');
   
-Route::get('/dashboard/transaction', function () {
-    return Inertia::render('TransactionView');
-  })->middleware(['auth', 'verified'])->name('transaction');
+Route::get('/dashboard/transaksi', function () {
+    return Inertia::render('TransaksiView');
+  })->middleware(['auth', 'verified'])->name('transaksi');
 
-Route::get('/dashboard/detail-transaksi', function () {
+Route::get('/dashboard/detail', function () {
     return Inertia::render('DetailTransaksiView');
-  })->middleware(['auth', 'verified'])->name('detailTransaksi');
+  })->middleware(['auth', 'verified'])->name('detail');
 
 //   Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return Inertia::render('Home');

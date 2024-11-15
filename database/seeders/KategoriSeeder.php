@@ -3,13 +3,13 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Category;
+use App\Models\Kategori;
 
 class KategoriSeeder extends Seeder
 {
     public function run()
     {
-        Category::create([
+        Kategori::create([
             'kategori' => 'Makanan',
         ]);
     }

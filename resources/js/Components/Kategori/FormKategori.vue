@@ -1,5 +1,5 @@
 <script setup>
-    import FormControlIcon from '@/components/FormControlIcon.vue';
+    import FormControlIcon from '@/Components/FormControlIcon.vue';
     import {
         useForm,
         router
