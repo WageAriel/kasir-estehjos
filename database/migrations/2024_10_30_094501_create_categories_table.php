@@ -7,15 +7,15 @@ class CreateCategoriesTable extends Migration
 {
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id('category_id');
-            $table->string('category_name');
+        Schema::create('kategori', function (Blueprint $table) {
+            $table->id();
+            $table->string('kategori');
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('kategori');
     }
 }

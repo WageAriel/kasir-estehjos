@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\KategoriController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -16,18 +17,35 @@ Route::get('/pemesanan', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('HomeView');
   })->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::get('/dashboard/produk', function () {
     return Inertia::render('ProdukView');
   })->middleware(['auth', 'verified'])->name('produk');
+
 Route::get('/dashboard/kasir', function () {
     return Inertia::render('KasirView');
   })->middleware(['auth', 'verified'])->name('kasir');
-Route::get('/dashboard/kategori', function () {
-    return Inertia::render('KategoriView');
-  })->middleware(['auth', 'verified'])->name('kategori');
+
+  Route::get('/dashboard/kategori', [KategoriController::class, 'index'])
+  ->middleware(['auth', 'verified'])
+  ->name('kategori');
+
+  Route::post('/dashboard/kategori', [KategoriController::class, 'store'])
+  ->middleware(['auth', 'verified'])
+  ->name('kategori.store');
+  
+  Route::delete('/dashboard/kategori/{kategori}', [KategoriController::class, 'destroy'])
+  ->middleware(['auth', 'verified'])
+  ->name('kategori.destroy');
+
+  Route::put('/dashboard/kategori/{kategori}', [KategoriController::class, 'update'])
+  ->middleware(['auth', 'verified'])
+  ->name('kategori.update');
+  
 Route::get('/dashboard/transaction', function () {
     return Inertia::render('TransactionView');
   })->middleware(['auth', 'verified'])->name('transaction');
+
 Route::get('/dashboard/transaction-detail', function () {
     return Inertia::render('TransactionView');
   })->middleware(['auth', 'verified'])->name('transactionDetail');
