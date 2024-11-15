@@ -20,19 +20,19 @@
     });
 
     const form = useForm({
-        id: '',
+        kategori_id: '',
         kategori: '',
     });
 
-    function destroy(id) {
+    function destroy(kategori_id) {
         // Tampilkan konfirmasi penghapusan
         if (confirm("Apakah Anda yakin ingin menghapus kategori ini?")) {
-            form.delete(`/dashboard/kategori/${id}`, {
+            form.delete(`/dashboard/kategori/${kategori_id}`, {
                 onSuccess: () => {
                     // Tampilkan alert setelah berhasil
                     alert('Kategori berhasil dihapus!');
                     // Memuat ulang halaman kategori
-                    router.get(route('kategori.index'));
+                    router.get(route('kategori'));
                 },
                 onError: () => {
                     alert('Gagal menghapus kategori!');
@@ -44,13 +44,13 @@
     const isEditModalOpen = ref(false);
 
     function openEditModal(kategoriData) {
-        form.id = kategoriData.id;
+        form.kategori_id = kategoriData.kategori_id;
         form.kategori = kategoriData.kategori;
         isEditModalOpen.value = true;
     }
 
     function saveChanges() {
-        form.put(`/dashboard/kategori/${form.id}`, {
+        form.put(`/dashboard/kategori/${form.kategori_id}`, {
             onSuccess: () => {
                 closeEditModal();
             },
@@ -75,7 +75,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="kategoriData in kategori" :key="kategoriData.id">
+            <tr v-for="kategoriData in kategori" :key="kategoriData.kategori_id">
                 <td data-label="Kategori">{{ kategoriData.kategori }}</td>
                 <td class="before:hidden lg:w-1 whitespace-nowrap">
                     <button @click.prevent="openEditModal(kategoriData)" class="hover:text-warning">
@@ -89,7 +89,7 @@
                                 fill="" />
                         </svg>
                     </button>
-                    <button @click.prevent="destroy(kategoriData.id)" class="hover:text-danger">
+                    <button @click.prevent="destroy(kategoriData.kategori_id)" class="hover:text-danger">
                         <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path

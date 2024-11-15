@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('123'),
         ]);
         $this->call([
-            // KategoriSeeder::class,
+            KategoriSeeder::class,
             // ProdukSeeder::class,
             TransaksiSeeder::class,
             // DetailTransaksiSeeder::class,
