@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Kategori;
@@ -13,7 +14,7 @@ class KategoriController extends Controller
         return Inertia::render('KategoriView', [
             'kategori' => Kategori::all()->map(function ($kategori) {
                 return [
-                    'kategori_id' => $kategori->id,
+                    'kategori_id' => $kategori->kategori_id,
                     'kategori' => $kategori->kategori,
                 ];
             })
@@ -30,13 +31,13 @@ class KategoriController extends Controller
             'kategori' => $validated['kategori'],
         ]);
 
-        return Redirect::route('kategori');
+        return Redirect::route('kategori')->with('success', 'Kategori berhasil ditambahkan');
     }
 
     public function destroy(Kategori $kategori)
     {
         $kategori->delete();
-        return Redirect::route('kategori');
+        return Redirect::route('kategori')->with('success', 'Kategori berhasil dihapus');
     }
 
     public function update(Request $request, Kategori $kategori)
@@ -47,6 +48,6 @@ class KategoriController extends Controller
 
         $kategori->update($validated);
 
-        return Redirect::route('kategori')->with('success', 'Data kategori updated successfully');
+        return Redirect::route('kategori')->with('success', 'Kategori berhasil diperbarui');
     }
 }
