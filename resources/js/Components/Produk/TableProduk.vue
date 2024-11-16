@@ -1,72 +1,83 @@
 <script setup>
-import { defineProps, ref } from 'vue';
-import { useForm, router } from '@inertiajs/vue3';
+    import {
+        defineProps,
+        ref
+    } from 'vue';
+    import {
+        useForm,
+        router
+    } from '@inertiajs/vue3';
 
-defineProps({
-    errors: {
-        type: Object,
-        default: () => ({}),
-    },
-    produk: {
-        type: Array,
-        default: () => [],
-    },
-});
+    const props = defineProps({
+        errors: {
+            type: Object,
+            default: () => ({}),
+        },
+        produk: {
+            type: Array,
+            default: () => [],
+        },
+        kategoriOptions: {
+            type: Array,
+            default: () => []
+        },
+    });
 
-const form = useForm({
-    produk_id: '',
-    produk_name: '',
-    kategori_id: '',
-    harga: '',
-    stok: '',
-    deskripsi: ''
-});
+    const form = useForm({
+        produk_id: '',
+        produk_name: '',
+        kategori: null,
+        harga: '',
+        stok: '',
+        deskripsi: ''
+    });
 
-// Delete functionality
-function destroy(produk_id) {
-    if (confirm("Apakah Anda yakin ingin menghapus produk ini?")) {
-        form.delete(`/dashboard/produk/${produk_id}`, {
+    // Delete functionality
+    function destroy(produk_id) {
+        if (confirm("Apakah Anda yakin ingin menghapus produk ini?")) {
+            form.delete(`/dashboard/produk/${produk_id}`, {
+                onSuccess: () => {
+                    alert('Produk berhasil dihapus!');
+                    router.get(route('produk.index'));
+                },
+                onError: () => {
+                    alert('Gagal menghapus produk!');
+                }
+            });
+        }
+    }
+
+    // Edit functionality
+    const isEditModalOpen = ref(false);
+
+    function openEditModal(produkData) {
+        form.produk_id = produkData.produk_id;
+        form.produk_name = produkData.produk_name;
+        form.kategori = produkData.kategori ? produkData.kategori.kategori_id : '';        
+        form.harga = produkData.harga;
+        form.stok = produkData.stok;
+        form.deskripsi = produkData.deskripsi;
+        isEditModalOpen.value = true;
+    }
+
+    function saveChanges() {
+        form.put(`/dashboard/produk/${form.produk_id}`, {
             onSuccess: () => {
-                alert('Produk berhasil dihapus!');
+                closeEditModal();
+                alert('Produk berhasil diupdate!');
                 router.get(route('produk.index'));
             },
             onError: () => {
-                alert('Gagal menghapus produk!');
-            }
+                alert('Gagal mengupdate produk!');
+            },
         });
     }
-}
 
-// Edit functionality
-const isEditModalOpen = ref(false);
+    function closeEditModal() {
+        isEditModalOpen.value = false;
+        form.reset();
+    }
 
-function openEditModal(produkData) {
-    form.produk_id = produkData.produk_id;
-    form.produk_name = produkData.produk_name;
-    form.kategori_id = produkData.kategori_id;
-    form.harga = produkData.harga;
-    form.stok = produkData.stok;
-    form.deskripsi = produkData.deskripsi;
-    isEditModalOpen.value = true;
-}
-
-function saveChanges() {
-    form.put(`/dashboard/produk/${form.produk_id}`, {
-        onSuccess: () => {
-            closeEditModal();
-            alert('Produk berhasil diupdate!');
-            router.get(route('produk.index'));
-        },
-        onError: () => {
-            alert('Gagal mengupdate produk!');
-        },
-    });
-}
-
-function closeEditModal() {
-    isEditModalOpen.value = false;
-    form.reset();
-}
 </script>
 
 <template>
@@ -84,7 +95,7 @@ function closeEditModal() {
         <tbody>
             <tr v-for="produkData in produk" :key="produkData.produk_id">
                 <td data-label="Nama Produk">{{ produkData.produk_name }}</td>
-                <td data-label="Kategori">{{ produkData.kategori }}</td>
+                <td data-label="Kategori">{{ produkData.kategori ? produkData.kategori.kategori : 'N/A' }}</td>
                 <td data-label="Harga">{{ produkData.harga }}</td>
                 <td data-label="Stok">{{ produkData.stok }}</td>
                 <td data-label="Deskripsi">{{ produkData.deskripsi }}</td>
@@ -134,12 +145,13 @@ function closeEditModal() {
                 </div>
 
                 <div class="mb-4">
-                    <label for="kategori_id" class="block text-sm font-medium text-gray-700">Kategori</label>
-                    <select v-model="form.kategori_id" class="mt-1 p-2 w-full border rounded" required>
-                        <option v-for="kat in kategori" :key="kat.kategori_id" :value="kat.kategori_id">
-                            {{ kat.kategori }}
-                        </option>
-                    </select>
+                    <label for="kategori" class="block text-sm font-medium text-gray-700">Kategori</label>
+                    <select v-model="form.kategori" class="mt-1 p-2 w-full border rounded">
+                            <option value="" disabled>Select kategori</option>
+                            <option v-for="kategori in props.kategoriOptions" :key="kategori.kategori_id" :value="kategori.kategori_id">
+                                {{ kategori.kategori }}
+                            </option>
+                        </select>
                     <div class="text-danger text-xs" v-if="errors.kategori_id">{{ errors.kategori_id }}</div>
                 </div>
 
@@ -173,22 +185,23 @@ function closeEditModal() {
 </template>
 
 <style scoped>
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-.modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
-}
+    .modal-content {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 300px;
+    }
+
 </style>

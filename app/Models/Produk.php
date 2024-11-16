@@ -27,6 +27,6 @@ class Produk extends Model
     // Menentukan relasi dengan model Kategori
     public function kategori()
     {
-        return $this->belongsTo(Kategori::class, 'kategori_id', 'kategori_id');
+        return $this->belongsTo(Kategori::class, 'kategori_id');
     }
 }

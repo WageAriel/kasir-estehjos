@@ -10,25 +10,12 @@ use Illuminate\Support\Facades\Redirect;
 
 class ProdukController extends Controller
 {
+    
     public function index()
     {
         return Inertia::render('ProdukView', [
-            'produk' => Produk::with('kategori')->get()->map(function ($produk) {
-                return [
-                    'produk_id' => $produk->produk_id,
-                    'produk_name' => $produk->produk_name,
-                    'kategori' => $produk->kategori ? $produk->kategori->kategori : null,
-                    'harga' => $produk->harga,
-                    'stok' => $produk->stok,
-                    'deskripsi' => $produk->deskripsi,
-                ];
-            }),
-            'kategori' => Kategori::all()->map(function ($kategori) {
-                return [
-                    'kategori_id' => $kategori->id,
-                    'kategori' => $kategori->kategori,
-                ];
-            })
+            'kategoriOptions' => Kategori::all(),
+            'produk' => Produk::with(['kategori'])->get(),
         ]);
     }
 
@@ -36,7 +23,7 @@ class ProdukController extends Controller
     {
         $validated = $request->validate([
             'produk_name' => 'required|max:255',
-            'kategori_id' => 'required|exists:kategori,id',
+            'kategori' => 'required|exists:kategori,kategori_id',
             'harga' => 'required|numeric',
             'stok' => 'required|integer',
             'deskripsi' => 'nullable|string',
@@ -44,7 +31,7 @@ class ProdukController extends Controller
 
         Produk::create([
             'produk_name' => $validated['produk_name'],
-            'kategori_id' => $validated['kategori_id'],
+            'kategori_id' => $validated['kategori'],
             'harga' => $validated['harga'],
             'stok' => $validated['stok'],
             'deskripsi' => $validated['deskripsi'],
@@ -63,14 +50,19 @@ class ProdukController extends Controller
     {
         $validated = $request->validate([
             'produk_name' => 'required|max:255',
-            'kategori_id' => 'required|exists:kategori,id',
+            'kategori' => 'required|exists:kategori,kategori_id',
             'harga' => 'required|numeric',
             'stok' => 'required|integer',
             'deskripsi' => 'nullable|string',
         ]);
 
-        $produk->update($validated);
-
+        $produk->update([
+            'produk_name' => $validated['produk_name'],
+            'kategori_id' => $validated['kategori'],
+            'harga' => $validated['harga'],
+            'stok' => $validated['stok'],
+            'deskripsi' => $validated['deskripsi'],
+        ]);
         return Redirect::route('produk')->with('success', 'Produk berhasil diperbarui');
     }
 }

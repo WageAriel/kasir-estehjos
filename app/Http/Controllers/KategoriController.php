@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\Redirect;
 
 class KategoriController extends Controller
 {
+    public function indexJson()
+    {
+        return response()->json(Kategori::all()->map(function ($kategori) {
+            return [
+                'kategori_id' => $kategori->kategori_id,
+                'kategori' => $kategori->kategori,
+            ];
+        }));
+    }
+    
     public function index()
     {
         return Inertia::render('KategoriView', [
