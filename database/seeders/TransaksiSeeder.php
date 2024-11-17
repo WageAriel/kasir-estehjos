@@ -19,7 +19,7 @@ class TransaksiSeeder extends Seeder
             $transaksi = Transaksi::create([
                 'tanggal_transaksi' => Carbon::now()->subDays(rand(0, 30)),
                 'total_jumlah' => 0, // akan diupdate nanti
-                'metode_pembayaran' => ['cash', 'debit', 'credit'][rand(0, 2)],
+                'metode_pembayaran' => ['cash', 'qris'][rand(0, 1)],
                 'kembalian' => 0 // akan diupdate nanti
             ]);
 
