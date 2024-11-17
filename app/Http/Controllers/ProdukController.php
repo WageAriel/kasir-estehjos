@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 
 class ProdukController extends Controller
 {
-    
+
     public function index()
     {
         return Inertia::render('ProdukView', [
