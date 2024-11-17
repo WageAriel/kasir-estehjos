@@ -14,7 +14,7 @@ class DetailTransaksiSeeder extends Seeder
             'produk_id' => 1,
             'jumlah' => 1,
             'subtotal' => '10000',
-            'kembalian' => '0'
+            'kembalian' => '500'
         ]);
     }
 }

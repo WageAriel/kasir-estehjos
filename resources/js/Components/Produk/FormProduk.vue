@@ -31,7 +31,9 @@
     const submitForm = () => {
         form.post('/api/produk', {
             onSuccess: () => {
-                /* handle success */ },
+                router.get(route('produk')); // Setelah berhasil, arahkan kembali ke halaman kategori
+                alert('Kategori berhasil ditambahkan!'); // Menampilkan alert success},
+            },
             onError: () => {
                 /* handle error */ },
         });

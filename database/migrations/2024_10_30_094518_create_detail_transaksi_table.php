@@ -8,18 +8,17 @@ class CreateDetailTransaksiTable extends Migration
     public function up()
     {
         Schema::create('detail_transaksi', function (Blueprint $table) {
-            $table->id('detail_id');
+            $table->id();
             $table->unsignedBigInteger('transaksi_id');
             $table->unsignedBigInteger('produk_id');
             $table->integer('jumlah');
-            $table->string('subtotal');
-            $table->string('kembalian');
+            $table->decimal('subtotal', 10, 2);
             $table->timestamps();
 
-            // Foreign keys
             $table->foreign('transaksi_id')->references('transaksi_id')->on('transaksi')->onDelete('cascade');
             $table->foreign('produk_id')->references('produk_id')->on('produk')->onDelete('cascade');
         });
+
     }
 
     public function down()

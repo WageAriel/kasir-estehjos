@@ -32,7 +32,6 @@ const produkData = computed(() => props.produk);
       <FormProduk/>
       <SectionTitleLineWithButton class="mt-5" :icon="mdiBallotOutline" title="Table Produk" main />
       <CardBox class="mb-6" has-table>
-        <!-- Pass Produk data as prop to TableProduk -->
         <TableProduk :produk="produkData" :kategoriOptions="kategoriOptions" />
       </CardBox>
     </SectionMain>

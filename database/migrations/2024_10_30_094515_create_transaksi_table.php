@@ -10,12 +10,10 @@ class CreateTransaksiTable extends Migration
         Schema::create('transaksi', function (Blueprint $table) {
             $table->id('transaksi_id');
             $table->dateTime('tanggal_transaksi');
-            $table->string('total_jumlah');
+            $table->decimal('total_jumlah', 12, 2); // Menggunakan decimal untuk nilai uang
             $table->string('metode_pembayaran');
+            $table->decimal('kembalian', 12, 2); // Menggunakan decimal untuk nilai uang
             $table->timestamps();
-
-            // Foreign key
-            // $table->foreign('cashier_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -1,48 +1,27 @@
 <script setup>
-    import {
-        mdiBallotOutline
-    } from '@mdi/js'
-    import SectionMain from '@/Components/SectionMain.vue'
-    import CardBox from '@/Components/CardBox.vue'
-    import LayoutAuthenticated from '@/Layouts/LayoutAuthenticated.vue'
-    import SectionTitleLineWithButton from '@/Components/SectionTitleLineWithButton.vue'
-    import {
-        defineProps
-    } from 'vue'
-    
-    const props = defineProps({
-        transaksi: {
-            type: Array,
-            required: true,
-        },
-    })
+import { defineProps, computed } from 'vue';
+import { mdiBallotOutline } from '@mdi/js';
+import SectionMain from '@/Components/SectionMain.vue';
+import CardBox from '@/Components/CardBox.vue';
+import LayoutAuthenticated from '@/Layouts/LayoutAuthenticated.vue';
+import SectionTitleLineWithButton from '@/Components/SectionTitleLineWithButton.vue';
+import TableTransaksi from '@/Components/Transaksi/TableTransaksi.vue';
 
+const props = defineProps({
+  transaksi: {
+    type: Array,
+    default: () => [],
+  },
+});
 </script>
 
 <template>
-    <LayoutAuthenticated>
-        <SectionMain>
-            <SectionTitleLineWithButton :icon="mdiBallotOutline" title="Transaksi" main />
-            <CardBox class="mb-6" has-table>
-                <table class="min-w-full">
-                    <thead>
-                        <tr>
-                            <th>Transaksi ID</th>
-                            <th>Transaksi Date</th>
-                            <th>Total Amount</th>
-                            <th>Payment Method</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="transaksi in transaksi" :key="transaksi.id">
-                            <td>{{ transaksi.transaksi_id }}</td>
-                            <td>{{ transaksi.tanggal_transaksi }}</td>
-                            <td>{{ transaksi.total_jumlah }}</td>
-                            <td>{{ transaksi.metode_pembayaran }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </CardBox>
-        </SectionMain>
-    </LayoutAuthenticated>
+  <LayoutAuthenticated>
+    <SectionMain>
+      <SectionTitleLineWithButton class="mt-5" :icon="mdiBallotOutline" title="Table Transaksi" main />
+      <CardBox class="mb-6" has-table>
+        <TableTransaksi :transaksi="transaksi" />
+      </CardBox>
+    </SectionMain>
+  </LayoutAuthenticated>
 </template>
