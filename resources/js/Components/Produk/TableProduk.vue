@@ -53,7 +53,7 @@
     function openEditModal(produkData) {
         form.produk_id = produkData.produk_id;
         form.produk_name = produkData.produk_name;
-        form.kategori = produkData.kategori ? produkData.kategori.kategori_id : '';        
+        form.kategori = produkData.kategori ? produkData.kategori.kategori_id : '';
         form.harga = produkData.harga;
         form.stok = produkData.stok;
         form.deskripsi = produkData.deskripsi;
@@ -84,6 +84,7 @@
     <table>
         <thead>
             <tr>
+                <th>ID Produk</th>
                 <th>Nama Produk</th>
                 <th>Kategori</th>
                 <th>Harga</th>
@@ -94,6 +95,7 @@
         </thead>
         <tbody>
             <tr v-for="produkData in produk" :key="produkData.produk_id">
+                <td data-label="Nama Produk">{{ produkData.produk_id }}</td>
                 <td data-label="Nama Produk">{{ produkData.produk_name }}</td>
                 <td data-label="Kategori">{{ produkData.kategori ? produkData.kategori.kategori : 'N/A' }}</td>
                 <td data-label="Harga">{{ produkData.harga }}</td>
