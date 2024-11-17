@@ -18,7 +18,7 @@ class KasirController extends Controller
         $search = $request->input('search', '');
 
         // Query pencarian berdasarkan nama produk
-        $produks = Produk::where('produk_name', 'like', '%' . $search . '%')->get();
+        $produks = Produk::where('produk_name', 'like', '%' . $search . '%')->orWhere('produk_id', 'like', '%' . $search . '%')->get();
 
         // Mengembalikan data produk dalam format JSON
         return response()->json([

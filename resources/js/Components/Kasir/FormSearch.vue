@@ -3,13 +3,16 @@ import { ref, watch } from 'vue'
 import { usePage } from '@inertiajs/inertia-vue3'
 import debounce from 'lodash.debounce'
 
+// Define the `emit` event at the top of the setup
+const emit = defineEmits()
+
 // Variabel untuk query pencarian dan produk
 const searchQuery = ref('')
 const produk = ref([])  // Menyimpan produk yang ditemukan
 const isLoading = ref(false)
 
 // Ambil data produk dan searchQuery dari Inertia
-const { props } = usePage()
+const { props } = usePage() // Tidak perlu 'emit' di sini
 
 // Inisialisasi produk dengan data yang sudah dikirimkan oleh controller
 produk.value = props.produks || []
@@ -39,7 +42,6 @@ const fetchProduk = async (query) => {
   }
 }
 
-
 // Debounce untuk mencegah pencarian terlalu sering
 const debouncedSearch = debounce((query) => {
   fetchProduk(query)
@@ -49,6 +51,12 @@ const debouncedSearch = debounce((query) => {
 watch(searchQuery, (newQuery) => {
   debouncedSearch(newQuery)
 })
+
+// Fungsi untuk menambahkan produk yang ditemukan ke kasir
+const addToCart = (product) => {
+  // Emit the 'addToCart' event to the parent component
+  emit('addToCart', product)  // Mengirim produk yang dipilih ke parent
+}
 </script>
 
 <template>
@@ -73,9 +81,10 @@ watch(searchQuery, (newQuery) => {
       <li
         v-for="item in produk"
         :key="item.produk_id"
-        class="px-3 py-2 border-b last:border-b-0"
+        class="px-3 py-2 border-b last:border-b-0 cursor-pointer"
+        @click="addToCart(item)" 
       >
-        {{ item.produk_name }} - {{ item.harga | currency }}
+        {{ item.produk_name }} - {{ item.harga }}
       </li>
     </ul>
 
@@ -85,7 +94,3 @@ watch(searchQuery, (newQuery) => {
     </div>
   </div>
 </template>
-
-<style scoped>
-/* Tambahkan styling tambahan sesuai kebutuhan */
-</style>

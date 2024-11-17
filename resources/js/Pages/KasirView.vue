@@ -1,26 +1,8 @@
-<template>
-  <LayoutAuthenticated>
-    <SectionMain>
-      <SectionTitle first>KASIR TOKO SUMBER BERKAT</SectionTitle>
-      <CardBox form class="card-box-spacing" @submit.prevent="submit">
-        <FormField label="Search Produk">
-          <FormSearch v-model="form.search" :icon="mdiMagnify" />
-          <div class="flex justify-end mt-4">
-            <BaseButton label="Confirm" color="info" @click.prevent="openModal" />
-          </div>
-        </FormField>
-        <TableKasir />
-      </CardBox>
-      <!-- Pass isModalOpen as prop and listen for close event from ModalTransaksi -->
-      <ModalTransaksi :is-modal-open="isModalOpen" @close-modal="closeModal" />
-    </SectionMain>
-  </LayoutAuthenticated>
-</template>
-
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, computed } from 'vue'
 import { mdiMagnify } from '@mdi/js'
 import SectionTitle from '@/Components/SectionTitle.vue'
+import SectionMain from '@/Components/SectionMain.vue'
 import LayoutAuthenticated from '@/Layouts/LayoutAuthenticated.vue'
 import CardBox from '@/Components/CardBox.vue'
 import FormField from '@/Components/FormField.vue'
@@ -29,6 +11,7 @@ import ModalTransaksi from '@/Components/Kasir/ModalTransaksi.vue'
 import TableKasir from '@/Components/Kasir/TableKasir.vue'
 import FormSearch from '@/Components/Kasir/FormSearch.vue'
 
+// Reactive form object to manage form fields
 const form = reactive({
   search: '',
   paymentMethod: 'Cash',
@@ -37,13 +20,34 @@ const form = reactive({
   change: 0,
 })
 
-function submit(){
-
-}
-
 const isModalOpen = ref(false)
 
+// Array to store the products in the cart
+const productsInCart = reactive([])
+
+// Function to add product to the cart
+const addToCart = (product) => {
+  const existingProduct = productsInCart.find((p) => p.produk_id === product.produk_id)
+  if (existingProduct) {
+    existingProduct.quantity += 1
+  } else {
+    // Add new product with default quantity of 1
+    productsInCart.push({
+      ...product,
+      quantity: 1
+    })
+  }
+}
+
+// Compute total payment
+const calculateTotalPayment = computed(() => {
+  return productsInCart.reduce((total, product) => {
+    return total + (product.harga * product.quantity)
+  }, 0)
+})
+
 function openModal() {
+  form.totalPayment = calculateTotalPayment.value
   isModalOpen.value = true
 }
 
@@ -65,10 +69,39 @@ function calculateChange() {
   } else {
     form.change = 0
   }
-  // Close modal after calculation
   closeModal()
 }
 </script>
+
+<template>
+  <LayoutAuthenticated>
+    <SectionMain>
+      <SectionTitle first>KASIR TOKO SUMBER BERKAT</SectionTitle>
+      <CardBox form class="card-box-spacing">
+        <FormField label="Search Produk">
+          <FormSearch v-model="form.search" :icon="mdiMagnify" @addToCart="addToCart" />
+          <div class="flex justify-end mt-4">
+            <BaseButton 
+              label="Confirm" 
+              color="info" 
+              @click.prevent="openModal"
+              :disabled="!productsInCart.length"
+            />
+          </div>
+        </FormField>
+        <TableKasir 
+          :products="productsInCart" 
+          @update:totalPayment="form.totalPayment = $event"
+        />
+      </CardBox>
+      <ModalTransaksi 
+        :is-modal-open="isModalOpen" 
+        :total-payment="calculateTotalPayment"
+        @close-modal="closeModal" 
+      />
+    </SectionMain>
+  </LayoutAuthenticated>
+</template>
 
 <style scoped>
 .card-box-spacing {
