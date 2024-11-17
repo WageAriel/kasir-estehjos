@@ -9,8 +9,18 @@ class KategoriSeeder extends Seeder
 {
     public function run()
     {
-        Kategori::create([
-            'kategori' => 'Makanan',
-        ]);
+        // Memasukkan beberapa kategori sekaligus
+        $categories = [
+            ['kategori' => 'Makanan'],
+            ['kategori' => 'Minuman'],
+            ['kategori' => 'Kesehatan'],
+            ['kategori' => 'Perawatan Pribadi'],
+            ['kategori' => 'Elektronik']
+        ];
+
+        // Insert data kategori
+        foreach ($categories as $category) {
+            Kategori::create($category);
+        }
     }
 }

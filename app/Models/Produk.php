@@ -17,6 +17,7 @@ class Produk extends Model
 
     // Menentukan kolom yang dapat diisi (mass assignable)
     protected $fillable = [
+        'produk_id',
         'produk_name',
         'kategori_id',
         'harga',
