@@ -1,9 +1,9 @@
 <script setup>
-import { reactive } from 'vue'
-import { defineProps, defineEmits } from 'vue'
+import { defineProps, reactive, watch } from 'vue'
 
 const props = defineProps({
-  isModalOpen: Boolean
+  isModalOpen: Boolean,
+  totalPayment: Number // Properti totalPayment diterima dari parent
 })
 
 const emit = defineEmits(['close-modal'])
@@ -12,7 +12,17 @@ const form = reactive({
   paymentMethod: 'Cash',
   totalPayment: 0,
   amountGiven: 0,
-  change: 0,
+  change: 0
+})
+
+// Sinkronisasi totalPayment dari props ke form.totalPayment
+watch(() => props.totalPayment, (newValue) => {
+  form.totalPayment = newValue
+})
+
+// Hitung kembalian secara otomatis saat amountGiven berubah
+watch(() => form.amountGiven, () => {
+  calculateChange()
 })
 
 function closeModal() {
@@ -25,7 +35,6 @@ function calculateChange() {
   } else {
     form.change = 0
   }
-  closeModal()
 }
 </script>
 
@@ -33,7 +42,7 @@ function calculateChange() {
   <div v-if="isModalOpen" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75 z-50">
     <div class="bg-white rounded-lg p-5 w-full max-w-md">
       <h4 class="text-lg font-semibold mb-4">Pembayaran</h4>
-      <form @submit.prevent="calculateChange">
+      <form @submit.prevent="closeModal">
         <!-- Metode Pembayaran -->
         <div class="mb-4">
           <label class="block text-sm font-medium text-gray-700">Metode Pembayaran</label>
@@ -49,7 +58,7 @@ function calculateChange() {
         <!-- Total Pembayaran -->
         <div class="mb-4">
           <label for="totalPayment" class="block text-sm font-medium text-gray-700">Total Pembayaran</label>
-          <input type="number" v-model="form.totalPayment" id="totalPayment" class="mt-1 p-2 w-full border rounded" required />
+          <input type="number" v-model="form.totalPayment" id="totalPayment" class="mt-1 p-2 w-full border rounded" disabled />
         </div>
 
         <!-- Uang yang Diberikan -->
@@ -59,9 +68,9 @@ function calculateChange() {
         </div>
 
         <!-- Kembalian -->
-        <div class="mb-4">
+        <div class="mb-4" v-if="form.paymentMethod === 'Cash'">
           <label for="change" class="block text-sm font-medium text-gray-700">Kembalian</label>
-          <input type="number" v-model="form.change" id="change" class="mt-1 p-2 w-full border rounded" readonly />
+          <input type="number" v-model="form.change" id="change" class="mt-1 p-2 w-full border rounded" disabled />
         </div>
 
         <!-- Buttons -->

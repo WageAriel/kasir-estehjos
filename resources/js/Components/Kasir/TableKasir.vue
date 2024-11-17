@@ -59,15 +59,15 @@ const total = computed(() => {
           <td class="px-4 py-2">{{ product.produk_name }}</td>
           <td class="px-4 py-2">
             <div class="flex items-center justify-center space-x-2">
-              <button 
-                @click="decrementQuantity(product)" 
+              <button
+                @click="decrementQuantity(product)"
                 class="px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded"
               >
                 -
               </button>
               <span class="w-8 text-center">{{ product.quantity }}</span>
-              <button 
-                @click="incrementQuantity(product)" 
+              <button
+                @click="incrementQuantity(product)"
                 class="px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded"
               >
                 +
