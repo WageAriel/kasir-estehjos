@@ -18,7 +18,7 @@
 
             <div class="flex items-center gap-5">
                 <!-- Cart Icon -->
-                <Link to="/cart" aria-label="Shopping Cart" class="flex items-center">
+                <Link href="/cart" aria-label="Shopping Cart" class="flex items-center">
                 <img loading="lazy" src="@/assets/images/Tas.png" alt="Cart Icon"
                     class="object-contain h-9 mt-[10px] transition-transform duration-200 hover:scale-110" />
                 </Link>

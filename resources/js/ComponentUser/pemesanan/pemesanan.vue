@@ -1,6 +1,6 @@
 <template>
   <div data-layername="catalog" class="flex overflow-hidden flex-col bg-white mb-[100px]">
-    <main class="self-center mt-8 w-full max-w-[1556px] max-md:max-w-full">
+    <main class="self-center mt-8 w-full max-w-[1400px] max-md:max-w-full">
       <div class="flex gap-5 max-md:flex-col">
         <aside data-layername="column" class="flex flex-col w-[24%] max-md:ml-0 max-md:w-full">
           <div class="flex flex-col max-md:mt-10">
@@ -9,7 +9,7 @@
             </div>
             <div data-layername="filtres" class="flex flex-col mt-9 w-full">
               <div class="flex gap-8 justify-between items-center max-w-full w-[360px]">
-                <input data-layername="cari" class="self-stretch my-auto text-4xl font-bold text-stone-800 w-[226px]" placeholder="Cari">
+                <input data-layername="cari" class="self-stretch my-auto text-4xl font-bold text-stone-800 w-[200px]" placeholder="Cari" />
                 <button data-layername="resetAll" class="self-stretch my-auto text-2xl tracking-wider text-stone-800 text-opacity-50">
                   Reset all
                 </button>
@@ -40,11 +40,11 @@
                 </div>
               </div>
               <div class="flex flex-wrap gap-8">
-                <article v-for="item in allItems" :key="item.id" class="flex flex-col p-5 border border-solid border-stone-200 min-w-[240px] w-[360px]">
+                <!-- <article v-for="item in allItems" :key="item.id" class="flex flex-col p-5 border border-solid border-stone-200 min-w-[240px] w-[360px]">
                   <img :src="item.image" :alt="item.name" class="object-cover" />
                   <div>{{ item.name }}</div>
                   <div>{{ item.price }}</div>
-                </article>
+                </article> -->
               </div>
               <div>
                 <component :is="currentView" />
@@ -57,35 +57,40 @@
   </div>
 </template>
 
-
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import Sembako from '@/ComponentUser/pemesanan/Sembako.vue';
-import Minuman from '@/ComponentUser/pemesanan/Minuman.vue';
-import { ChevronDownIcon } from '@heroicons/vue/24/solid';
+import Sembako from "@/ComponentUser/pemesanan/Sembako.vue";
+import Minuman from "@/ComponentUser/pemesanan/Minuman.vue";
+import { ChevronDownIcon } from "@heroicons/vue/24/solid";
 
 export default defineComponent({
-  Components: {
+  components: {
     Sembako,
-    Minuman
+    Minuman,
   },
   setup() {
-    // Definisikan items dengan informasi setiap kategori
+    // Data untuk items
     const items = [
       { label: "Sembako", component: "Sembako", icon: ChevronDownIcon },
       { label: "Minuman", component: "Minuman", icon: ChevronDownIcon },
     ];
 
-    // Menggunakan ref untuk melacak komponen yang sedang ditampilkan
+    // Data utama
+    const allItems = ref([
+      { id: 1, name: "Produk A", image: "image-a.jpg", price: "Rp 10.000" },
+      { id: 2, name: "Produk B", image: "image-b.jpg", price: "Rp 20.000" },
+      // Tambahkan data produk lainnya
+    ]);
+
     const currentView = ref<string | null>(null);
 
-    // Fungsi untuk mengubah tampilan berdasarkan filter yang diklik
     const setFilter = (view: string) => {
       currentView.value = view;
     };
 
     return {
       items,
+      allItems,
       currentView,
       setFilter,
     };

@@ -13,6 +13,10 @@ Route::get('/pemesanan', function () {
     return Inertia::render('pemesananView');
 })->name('pemesanan');
 
+Route::get('/cart', function () {
+    return Inertia::render('CartView');
+})->name('cart');
+
 Route::get('/dashboard', function () {
     return Inertia::render('HomeView');
   })->middleware(['auth', 'verified'])->name('dashboard');
