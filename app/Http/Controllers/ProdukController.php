@@ -10,6 +10,22 @@ use Illuminate\Support\Facades\Redirect;
 
 class ProdukController extends Controller
 {
+    public function getSembako()
+{
+    // Mengambil kategori 'Sembako' berdasarkan nama kategori
+    $kategoriSembako = Kategori::where('kategori', 'Sembako')->first();
+
+    if ($kategoriSembako) {
+        // Mengambil produk dengan kategori 'Sembako'
+        $produkSembako = Produk::where('kategori_id', $kategoriSembako->kategori_id)
+            ->with('kategori')
+            ->get();
+
+        return response()->json($produkSembako);
+    }
+
+    return response()->json([]);
+}
 
     public function index()
     {

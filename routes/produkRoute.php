@@ -9,5 +9,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/dashboard/produk/{produk}', [ProdukController::class, 'destroy'])->name('produk.destroy');
 });
 Route::get('/produk/search', [ProdukController::class, 'search'])->name('produk.search');
+Route::get('/produk/sembako', [ProdukController::class, 'getSembako'])->name('produk.sembako');
+
 
 require __DIR__ . '/auth.php';

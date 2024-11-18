@@ -3,13 +3,13 @@
         <!-- Grid Produk -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <article v-for="item in paginatedItems" :key="item.id"
-                class="flex flex-col p-5 border border-solid border-stone-200 min-w-[240px] w-[360px]">
+                class="flex flex-col p-5 border border-solid border-stone-200 min-w-[240px] w-[300px]">
                 <div data-layername="foto"
                     class="flex flex-col w-80 max-w-full text-base text-center lowercase whitespace-nowrap text-stone-200">
                     <div class="flex relative flex-col items-start pb-40 w-full aspect-[0.958] max-md:pr-5 max-md:pb-24">
                         <img loading="lazy" :src="item.image" :alt="item.name"
-                            class="object-cover absolute inset-0 size-full" />
-                        <div class="flex relative flex-col items-start mb-0 max-w-full min-h-[180px] w-[129px] max-md:mb-2.5">
+                            class="object-cover absolute inset-0 size-[300px]" />
+                        <div class="flex relative flex-col items-start mb-0 max-w-full min-h-[150px] w-[129px] max-md:mb-2.5">
                             <div v-if="item.sale" class="gap-2.5 self-stretch px-4 py-1.5 bg-yellow-600 min-h-[32px]">
                                 Sale
                             </div>
