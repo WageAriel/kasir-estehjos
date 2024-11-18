@@ -81,23 +81,24 @@ function calculateChange() {
         <FormField label="Search Produk">
           <FormSearch v-model="form.search" :icon="mdiMagnify" @addToCart="addToCart" />
           <div class="flex justify-end mt-4">
-            <BaseButton 
-              label="Confirm" 
-              color="info" 
+            <BaseButton
+              label="Confirm"
+              color="info"
               @click.prevent="openModal"
               :disabled="!productsInCart.length"
             />
           </div>
         </FormField>
-        <TableKasir 
-          :products="productsInCart" 
+        <TableKasir
+          :products="productsInCart"
           @update:totalPayment="form.totalPayment = $event"
         />
       </CardBox>
-      <ModalTransaksi 
-        :is-modal-open="isModalOpen" 
+      <ModalTransaksi
+        :products="productsInCart"
+        :is-modal-open="isModalOpen"
         :total-payment="calculateTotalPayment"
-        @close-modal="closeModal" 
+        @close-modal="closeModal"
       />
     </SectionMain>
   </LayoutAuthenticated>
