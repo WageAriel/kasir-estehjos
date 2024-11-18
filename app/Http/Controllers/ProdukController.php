@@ -81,4 +81,28 @@ class ProdukController extends Controller
         ]);
         return Redirect::route('produk')->with('success', 'Produk berhasil diperbarui');
     }
+
+    public function reduceStock(Request $request)
+{
+    $validated = $request->validate([
+        'products' => 'required|array',
+        'products.*.produk_id' => 'exists:produk,produk_id',
+        'products.*.quantity' => 'integer|min:1'
+    ]);
+
+    foreach ($validated['products'] as $item) {
+        $product = Produk::findOrFail($item['produk_id']);
+
+        // Check if sufficient stock
+        if ($product->stok < $item['quantity']) {
+            return back()->withErrors([
+                'stock' => "Insufficient stock for product {$product->produk_name}"
+            ]);
+        }
+
+        $product->decrement('stok', $item['quantity']);
+    }
+
+    return back()->with('success', 'Transaksi berhasil dan stok telah diperbarui');
+}
 }

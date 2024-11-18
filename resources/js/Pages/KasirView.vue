@@ -71,6 +71,8 @@ function calculateChange() {
   }
   closeModal()
 }
+
+
 </script>
 
 <template>

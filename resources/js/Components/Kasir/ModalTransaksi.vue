@@ -4,6 +4,7 @@
         reactive,
         watch
     } from 'vue';
+    import { router } from '@inertiajs/vue3';
 
     const props = defineProps({
         products: {
@@ -46,13 +47,28 @@
     }
 
     function printReceipt() {
-        const printContent = document.getElementById('receipt').innerHTML;
-        const originalContent = document.body.innerHTML;
-        document.body.innerHTML = printContent;
-        window.print();
-        document.body.innerHTML = originalContent;
-        closeModal(); // Tutup modal setelah cetak
-    }
+    const printContent = document.getElementById('receipt').innerHTML;
+    const originalContent = document.body.innerHTML;
+    document.body.innerHTML = printContent;
+    window.print();
+    document.body.innerHTML = originalContent;
+
+    // Reduce stock after printing
+    router.post(route('produk.reduce-stock'), {
+        products: props.products.map(product => ({
+            produk_id: product.produk_id,
+            quantity: product.quantity
+        }))
+    }, {
+        onSuccess: () => {
+            closeModal();
+        },
+        onError: (errors) => {
+            console.error('Stock reduction error:', errors);
+            // Optionally show error to user
+        }
+    });
+}
 
 </script>
 
