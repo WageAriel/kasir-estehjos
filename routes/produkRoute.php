@@ -10,7 +10,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 Route::get('/produk/search', [ProdukController::class, 'search'])->name('produk.search');
 Route::get('/produk/sembako', [ProdukController::class, 'getSembako'])->name('produk.sembako');
+Route::get('/produk/minuman', [ProdukController::class, 'getMinuman'])->name('produk.Minuman');
 Route::post('/reduce-stock', [ProdukController::class, 'reduceStock'])
     ->name('produk.reduce-stock');
-
+Route::get('/produk/all', [ProdukController::class, 'getAllProducts'])->name('produk.all');
 require __DIR__ . '/auth.php';

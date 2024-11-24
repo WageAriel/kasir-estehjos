@@ -7,7 +7,7 @@
           <div class="flex flex-col items-center self-stretch">
             <img
               loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/7b2cdcc5f4a54c853a49578735544cc6bcda56c9be329ef8434ba70852cf9454?placeholderIfAbsent=true&apiKey=c8698c43222e44c9baf2ff8bdf6a77c2"
+              src="@/Assets/images/esteh.jpg"
               alt="Company logo"
               class="w-[250px] h-[251.05px]"
             />
@@ -16,7 +16,7 @@
               <a href="#" aria-label="Facebook">
                 <img
                   loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/17a282d476aa7c5a0133dd781105c4f69899333bdbce103378189fdc24b20c50?placeholderIfAbsent=true&apiKey=c8698c43222e44c9baf2ff8bdf6a77c2"
+                  src="@/Assets/images/FB.png"
                   alt=""
                   class="object-contain shrink-0 w-8 aspect-square"
                 />
@@ -24,17 +24,17 @@
               <a href="#" aria-label="Twitter">
                 <img
                   loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/2b22a299a06d4ddd347be970dba81e95326735fce09b186a71ee44932a96e628?placeholderIfAbsent=true&apiKey=c8698c43222e44c9baf2ff8bdf6a77c2"
+                  src="@/Assets/images/X .png"
                   alt=""
-                  class="object-contain shrink-0 mt-1 aspect-[1.21] w-[35px]"
+                  class="object-contain shrink-0 mt-[-2px] aspect-[1.7] w-[60px]"
                 />
               </a>
               <a href="#" aria-label="Instagram">
                 <img
                   loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/64c26a0ea3662745864af556ab761e501f20e3e1093cd049e5b316dc1a1d1286?placeholderIfAbsent=true&apiKey=c8698c43222e44c9baf2ff8bdf6a77c2"
+                  src="@/Assets/images/IG.png"
                   alt=""
-                  class="object-contain shrink-0 self-stretch aspect-square w-[34px]"
+                  class="object-contain shrink-0 mt-[-1px] self-stretch aspect-square w-[34px]"
                 />
               </a>
             </nav>
@@ -42,20 +42,20 @@
 
           <!-- Shop Links -->
           <div class="w-[93px] h-[228px] relative">
-            <router-link to="" class="left-0 top-0 absolute text-black text-[22px] font-medium font-['Roboto Slab'] uppercase">SHOP</router-link>
-            <router-link to="" class="left-0 top-[54px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">Products</router-link>
-            <router-link to="" class="left-0 top-[102px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">Overview</router-link>
-            <router-link to="" class="left-0 top-[150px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">Pricing</router-link>
-            <router-link to="" class="left-0 top-[198px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">Releases</router-link>
+            <div class="left-0 top-0 absolute text-black text-[22px] font-medium font-['Roboto Slab'] uppercase">SHOP</div>
+            <Link href="/pemesanan" class="left-0 top-[54px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">Products</Link>
+            <Link href="" class="left-0 top-[102px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">Overview</Link>
+            <Link href="/cart" class="left-0 top-[150px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">Pricing</Link>
+            <Link href="" class="left-0 top-[198px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">Releases</Link>
           </div>
 
           <!-- Company Links -->
           <div class="w-[113px] h-[228px] relative">
-            <router-link to="" class="left-0 top-0 absolute text-black text-[22px] font-medium font-['Roboto Slab'] uppercase">COMPANY</router-link>
-            <router-link to="" class="left-0 top-[54px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">About Us</router-link>
-            <router-link to="" class="left-0 top-[102px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">Contact</router-link>
-            <router-link to="" class="left-0 top-[150px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">News</router-link>
-            <router-link to="" class="left-0 top-[198px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">Support</router-link>
+            <Link href="" class="left-0 top-0 absolute text-black text-[22px] font-medium font-['Roboto Slab'] uppercase">COMPANY</Link>
+            <Link href="" class="left-0 top-[54px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">About Us</Link>
+            <Link href="" class="left-0 top-[102px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">Contact</Link>
+            <Link href="" class="left-0 top-[150px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">News</Link>
+            <Link href="" class="left-0 top-[198px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">Support</Link>
           </div>
 
           <!-- Newsletter Subscription -->
@@ -87,8 +87,6 @@
   </footer>
 </template>
 
-<script>
-export default {
-  name: 'Footer'
-}
+<script setup>
+import { Link } from '@inertiajs/vue3'
 </script>

@@ -23,11 +23,6 @@
                     <button @click="addToCart(item)" class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-full">
                         Tambah Keranjang
                     </button>
-                    <div>
-        <button @click="goToCart" class="px-4 py-2 bg-blue-600 text-white rounded-full">
-            Go to Cart
-        </button>
-    </div>
                 </div>
             </article>
         </div>
@@ -59,7 +54,13 @@ import axios from "axios";
 import { usePage } from '@inertiajs/inertia-vue3'; // Menggunakan usePage untuk navigasi
 
 export default defineComponent({
-    setup() {
+    props: {
+    searchQuery: {
+      type: String,
+      required: true,
+    },
+  },
+    setup(props) {
         const items = ref([]);
         const itemsPerPage = 12;
         const currentPage = ref(1);
@@ -81,22 +82,37 @@ export default defineComponent({
             }
         });
 
+        const filteredItems = computed(() => {
+      if (props.searchQuery.trim() === '') {
+        return items.value; // Jika tidak ada kata kunci, tampilkan semua produk
+      }
+
+      return items.value.filter((item) =>
+        item.produk_name.toLowerCase().includes(props.searchQuery.toLowerCase())
+      );
+    });
+
         // Menambahkan produk ke keranjang
         const addToCart = (item) => {
-            const found = cart.value.find((cartItem) => cartItem.produk_id === item.produk_id);
-            if (found) {
-                found.quantity++;
-            } else {
-                cart.value.push({ ...item, quantity: 1 });
-            }
+    const found = cart.value.find((cartItem) => cartItem.produk_id === item.produk_id);
+    if (found) {
+        found.quantity++;
+    } else {
+        cart.value.push({ ...item, quantity: 1 });
+    }
 
-            // Simpan data keranjang ke localStorage
-            localStorage.setItem('cart', JSON.stringify(cart.value));
-        };
+    // Simpan data keranjang ke localStorage
+    localStorage.setItem('cart', JSON.stringify(cart.value));
+
+    // Tampilkan notifikasi
+    alert(`${item.produk_name} berhasil ditambahkan ke keranjang!`);
+};
 
         // Mengurutkan produk berdasarkan nama
         const sortedItems = computed(() => {
-            return items.value.slice().sort((a, b) => a.produk_name.localeCompare(b.produk_name));
+            return filteredItems.value.slice().sort((a, b) =>
+        a.produk_name.localeCompare(b.produk_name)
+      );
         });
 
         // Menghitung total halaman

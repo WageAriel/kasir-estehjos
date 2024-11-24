@@ -27,6 +27,33 @@ class ProdukController extends Controller
     return response()->json([]);
 }
 
+public function getMinuman()
+{
+    // Mengambil kategori 'Sembako' berdasarkan nama kategori
+    $kategoriMinuman = Kategori::where('kategori', 'Minuman')->first();
+
+    if ($kategoriMinuman) {
+        // Mengambil produk dengan kategori 'Minuman'
+        $produkMinuman = Produk::where('kategori_id', $kategoriMinuman->kategori_id)
+            ->with('kategori')
+            ->get();
+
+        return response()->json($produkMinuman);
+    }
+
+    return response()->json([]);
+}
+
+public function getAllProducts()
+{
+    // Ambil semua data produk tanpa relasi kategori
+    $allProducts = Produk::all();
+
+    // Kembalikan data dalam format JSON
+    return response()->json($allProducts);
+}
+
+
     public function index()
     {
         return Inertia::render('ProdukView', [
