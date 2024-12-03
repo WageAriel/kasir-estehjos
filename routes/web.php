@@ -26,6 +26,17 @@ Route::get('/cart', function () {
     return Inertia::render('CartView');
 })->name('cart');
 
+Route::get('/featured', function () {
+    return Inertia::render('FeaturesView');
+})->name('featured');
+
+Route::get('/contact', function () {
+    return Inertia::render('ContactView');
+})->name('contact');
+
+Route::get('/dashboard', function () {
+    return Inertia::render('HomeView');
+  })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['role:admin'])->group(function () {
 

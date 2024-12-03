@@ -11,7 +11,7 @@ class KategoriSeeder extends Seeder
     {
         // Memasukkan beberapa kategori sekaligus
         $categories = [
-            ['kategori' => 'Makanan'],
+            ['kategori' => 'Sembako'],
             ['kategori' => 'Minuman'],
             ['kategori' => 'Kesehatan'],
             ['kategori' => 'Perawatan Pribadi'],

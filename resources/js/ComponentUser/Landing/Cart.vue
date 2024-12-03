@@ -3,7 +3,7 @@
       <!-- Header Section -->
       <header class="flex gap-10 justify-between items-center pb-2 w-full text-2xl font-semibold leading-10 text-slate-950">
         <h1>Pesanan</h1>
-        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/560de91c45eae0fef1b22a18da4f44856d91fc7ffa4e073651fb368ce316dba3?placeholderIfAbsent=true&apiKey=c8698c43222e44c9baf2ff8bdf6a77c2" alt="User Icon" class="w-[30px] rounded-full" />
+        <!-- <img loading="lazy" src="@/Assets/images/esteh" alt="User Icon" class="w-[30px] rounded-full" /> -->
       </header>
   
       <!-- Order Items Section -->
@@ -29,14 +29,13 @@
             </div>
             <div class="flex items-center gap-2">
               <button @click="decreaseQuantity(index)" aria-label="Decrease quantity" class="w-8">
-                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f41028e0a64800d7886db08fe996713f95cc839d7e4ec1649c86731cf8fbb4e0?placeholderIfAbsent=true&apiKey=c8698c43222e44c9baf2ff8bdf6a77c2" alt="Decrease" />
               </button>
               <span>{{ item.quantity }}</span>
               <button @click="increaseQuantity(index)" aria-label="Increase quantity" class="w-8">
-                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/9bdfc3c720c3b644e02588581ae0e74531d6c2c60bc09904c3471deb663e939f?placeholderIfAbsent=true&apiKey=c8698c43222e44c9baf2ff8bdf6a77c2" alt="Increase" />
+                <img src="" alt="Increase" />
               </button>
               <button @click="removeItem(index)" aria-label="Remove item" class="w-8 rounded-full">
-                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/23d7dab32ea78268349c01ce09ed44e263438280ffdb1a101f5f08f3643b9413?placeholderIfAbsent=true&apiKey=c8698c43222e44c9baf2ff8bdf6a77c2" alt="Remove" />
+                <img src="" alt="Remove" />
               </button>
             </div>
           </div>
@@ -75,27 +74,27 @@
     name: 'OrderSummary',
     data() {
       return {
-        orderItems: [
-          {
-            imageSrc: 'https://cdn.builder.io/api/v1/image/assets/TEMP/25944a2cdfdcc04f2697dd60bda8dbaa9a68c4f2f79abe7656c94b10d6da3ba4?placeholderIfAbsent=true&apiKey=c8698c43222e44c9baf2ff8bdf6a77c2',
-            name: 'esteh',
-            quantity: 1,
-            description: 'LOREM IPSUM',
-            price: 'Rp xxx.xxx',
-          },
-          {
-            imageSrc: 'https://cdn.builder.io/api/v1/image/assets/TEMP/ed2f0d76c609f550cf18ff2bd7ce916e5e07a5fa85a31da865bdd34c73a1a970?placeholderIfAbsent=true&apiKey=c8698c43222e44c9baf2ff8bdf6a77c2',
-            name: 'esteh',
-            quantity: 1,
-            description: 'LOREM IPSUM',
-            price: 'Rp xxx.xxx',
-          },
-        ],
-        subtotal: 'Rp xxx.xxx',
-        shipping: 'FREE',
-        discount: '-',
-        tax: '-',
-        total: 'Rp xxx.xxx',
+        // orderItems: [
+        //   {
+        //     imageSrc: '',
+        //     name: 'esteh',
+        //     quantity: 1,
+        //     description: 'LOREM IPSUM',
+        //     price: 'Rp xxx.xxx',
+        //   },
+        //   {
+        //     imageSrc: '',
+        //     name: 'esteh',
+        //     quantity: 1,
+        //     description: 'LOREM IPSUM',
+        //     price: 'Rp xxx.xxx',
+        //   },
+        // ],
+        // subtotal: 'Rp xxx.xxx',
+        // shipping: 'FREE',
+        // discount: '-',
+        // tax: '-',
+        // total: 'Rp xxx.xxx',
       };
     },
     methods: {

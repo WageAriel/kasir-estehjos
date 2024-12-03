@@ -34,21 +34,9 @@
           <div class="flex relative flex-col grow pt-24 pr-3 pb-10 pl-4 rounded-none min-h-[500px] max-md:pt-16 max-md:pl-5 max-md:mt-10 max-md:max-w-full">
             <img 
               loading="lazy" 
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/0e3c3f45a1eb821739e039703dc829e2de0fa9f9f26b3b78e10638eb42bba640?placeholderIfAbsent=true&apiKey=c8698c43222e44c9baf2ff8bdf6a77c2" 
+              src="@/Assets/images/Esteh2.png" 
               alt="" 
               class="object-cover absolute inset-0 size-full" 
-            />
-            <img 
-              loading="lazy" 
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/11057a124c8d0a4a4de0dac8ab453823e0c41535a639494a2ba675701234f1e8?placeholderIfAbsent=true&apiKey=c8698c43222e44c9baf2ff8bdf6a77c2" 
-              alt="" 
-              class="object-contain self-end max-w-full aspect-[1.08] w-[90px]" 
-            />
-            <img 
-              loading="lazy" 
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/s11057a124c8d0a4a4de0dac8ab453823e0c41535a639494a2ba675701234f1e8?placeholderIfAbsent=true&apiKey=c8698c43222e44c9baf2ff8bdf6a77c2" 
-              alt="" 
-              class="object-contain mt-32 max-w-full aspect-[1.08] w-[90px] max-md:mt-8" 
             />
           </div>
         </section>
