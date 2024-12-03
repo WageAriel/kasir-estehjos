@@ -20,10 +20,10 @@
                 </Link>
 
                 <!-- Kondisi untuk tombol Login / Logout -->
-                <Link v-if="!isAuthenticated" href="/dashboard" class="px-4 py-2 border border-neutral-800 rounded hover:bg-yellow-200 text-sm">
+                <Link v-if="!auth.user" :href="route('login')" class="px-4 py-2 border border-neutral-800 rounded hover:bg-yellow-200 text-sm">
                     LOGIN
                 </Link>
-                <Link v-else @submit.prevent="logout">
+                <Link v-else @click="logout">
                     <button type="submit" class="px-4 py-2 border border-neutral-800 rounded hover:bg-yellow-200 text-sm">
                         LOGOUT
                     </button>
@@ -35,17 +35,23 @@
 
 <script setup>
     import {
-        Link
+        Link, usePage
     } from '@inertiajs/vue3'
+    import { Inertia } from '@inertiajs/inertia';
 import { defineProps } from 'vue'
 
 // Menerima prop isAuthenticated yang dikirim dari Laravel
-const props = defineProps({
-    isAuthenticated: Boolean,
-})
+const { auth } = usePage().props;
+
 
 const logout = () => {
-    // Kirim permintaan logout ke server
-    window.location.href = '/logout'  // Atau gunakan Inertia untuk logout jika perlu
-}
+    auth.user = null; // Kosongkan auth.user secara lokal
+    Inertia.post(route('logout'), {
+        onSuccess: () => {
+            Inertia.reload({
+                only: ['auth'],
+            }); // Pastikan auth terbaru
+        },
+    });
+};
 </script>

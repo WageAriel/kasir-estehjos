@@ -69,4 +69,6 @@ class AuthenticatedSessionController extends Controller
         // Mengarahkan ke halaman login
         return redirect('/login');
     }
+
+    
 }
