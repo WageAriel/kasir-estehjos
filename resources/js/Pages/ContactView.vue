@@ -77,24 +77,24 @@ import { mdiMapMarker, mdiEmail, mdiPhone } from '@mdi/js'
         </div>
 
           <!-- Social Media -->
-          <div class="flex justify-start gap-6 mt-8">
+          <div class="flex justify-start gap-6 mt-10">
             <a href="#" class="hover:opacity-75">
               <img
-                src="resources/assets/images/FB.png"
+                src="@/Assets/images/FB.png"
                 alt="Facebook"
                 class="w-10 h-10"
               />
             </a>
             <a href="#" class="hover:opacity-75">
               <img
-                src="resources/assets/images/X.png"
+                src="@/Assets/images/X .png"
                 alt="Twitter"
-                class="w-10 h-10"
+                class="w-15 h-10"
               />
             </a>
             <a href="#" class="hover:opacity-75">
               <img
-                src="resources/assets/images/IG.png"
+                src="@/Assets/images/IG.png"
                 alt="Instagram"
                 class="w-10 h-10"
               />
