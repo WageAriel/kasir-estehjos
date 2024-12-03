@@ -2,7 +2,7 @@
 use App\Http\Controllers\KategoriController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['role:admin'])->group(function () {
     Route::get('/dashboard/kategori', [KategoriController::class, 'index'])->name('kategori');
     Route::post('/dashboard/kategori', [KategoriController::class, 'store'])->name('kategori.store');
     Route::put('/dashboard/kategori/{kategori}', [KategoriController::class, 'update'])->name('kategori.update');

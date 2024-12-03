@@ -2,7 +2,7 @@
 use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['role:admin'])->group(function () {
     Route::get('/dashboard/transaksi', [TransaksiController::class, 'index'])->name('transaksi');
     Route::post('dashboard/transaksi', [TransaksiController::class, 'store'])->name('transaksi.store');
     Route::put('dashboard/transaksi/{transaksi}', [TransaksiController::class, 'show'])->name('transaksi.show');

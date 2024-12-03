@@ -5,8 +5,17 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+// Route::get('/', function () {
+//     return Inertia::render('LandingView');
+// })->name('landing');
+
 Route::get('/', function () {
-    return Inertia::render('LandingView');
+    return Inertia::render('LandingView', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
 })->name('landing');
 
 Route::get('/pemesanan', function () {
@@ -17,32 +26,35 @@ Route::get('/cart', function () {
     return Inertia::render('CartView');
 })->name('cart');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('HomeView');
-  })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/dashboard/kasir', function () {
-    return Inertia::render('KasirView');
-  })->middleware(['auth', 'verified'])->name('kasir');
+Route::middleware(['role:admin'])->group(function () {
 
-Route::get('/dashboard/transaksi', function () {
-    return Inertia::render('TransaksiView');
-  })->middleware(['auth', 'verified'])->name('transaksi');
+    Route::get('/dashboard', function () {
+        return Inertia::render('HomeView');
+    })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/dashboard/detail', function () {
-    return Inertia::render('DetailTransaksiView');
-  })->middleware(['auth', 'verified'])->name('detail');
+    Route::get('/dashboard/kasir', function () {
+        return Inertia::render('KasirView');
+    })->middleware(['auth', 'verified'])->name('kasir');
 
-  
+    Route::get('/dashboard/transaksi', function () {
+        return Inertia::render('TransaksiView');
+    })->middleware(['auth', 'verified'])->name('transaksi');
+
+    Route::get('/dashboard/detail', function () {
+        return Inertia::render('DetailTransaksiView');
+    })->middleware(['auth', 'verified'])->name('detail');
+});
+
 //   Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return Inertia::render('Home');
 // })->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 require __DIR__.'/auth.php';
 require __DIR__.'/transaksiRoute.php';
