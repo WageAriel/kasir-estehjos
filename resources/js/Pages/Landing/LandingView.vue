@@ -18,9 +18,9 @@
 
 <script setup lang="ts">
   import MainLayout from '@/ComponentUser/layout/MainLayout.vue';
-  import Hero from '@/ComponentUser/Landing/Hero.vue';
-  import Partner from '@/ComponentUser/Landing/Partner.vue';
-  import Product from '@/ComponentUser/Landing/Product.vue';
-  import About from '@/ComponentUser/Landing/About.vue';
-  import Feedback from '@/ComponentUser/Landing/Feedback.vue';
+  import Hero from '@/Pages/Landing/Hero.vue';
+  import Partner from '@/Pages/Landing/Partner.vue';
+  import Product from '@/Pages/Landing/product.vue';
+  import About from '@/Pages/Landing/About.vue';
+  import Feedback from '@/Pages/Landing/Feedback.vue';
 </script>

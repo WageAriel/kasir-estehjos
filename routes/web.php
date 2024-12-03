@@ -10,7 +10,7 @@ use Inertia\Inertia;
 // })->name('landing');
 
 Route::get('/', function () {
-    return Inertia::render('LandingView', [
+    return Inertia::render('Landing/LandingView', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
@@ -19,11 +19,11 @@ Route::get('/', function () {
 })->name('landing');
 
 Route::get('/pemesanan', function () {
-    return Inertia::render('pemesananView');
+    return Inertia::render('Landing/pemesananView');
 })->name('pemesanan');
 
 Route::get('/cart', function () {
-    return Inertia::render('CartView');
+    return Inertia::render('Landing/CartView');
 })->name('cart');
 
 Route::get('/featured', function () {
