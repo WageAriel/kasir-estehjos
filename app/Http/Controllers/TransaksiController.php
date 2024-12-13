@@ -9,20 +9,52 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class TransaksiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Eager load transaksi with produk and transaksi_detail
-        $transaksi = Transaksi::with(['detailTransaksi.produk'])->get();
+        // Get filter parameters from the request
+        $filterType = $request->input('filter_type', 'all');
+        $selectedDate = $request->input('selected_date');
+
+        // Base query for transactions
+        $query = Transaksi::with(['detailTransaksi.produk']);
+
+        // Apply filtering based on the filter type
+        if ($selectedDate) {
+            switch ($filterType) {
+                case 'daily':
+                    $query->whereDate('tanggal_transaksi', $selectedDate);
+                    break;
+                case 'weekly':
+                    $startOfWeek = Carbon::parse($selectedDate)->startOfWeek();
+                    $endOfWeek = Carbon::parse($selectedDate)->endOfWeek();
+                    $query->whereBetween('tanggal_transaksi', [$startOfWeek, $endOfWeek]);
+                    break;
+                case 'monthly':
+                    $startOfMonth = Carbon::parse($selectedDate)->startOfMonth();
+                    $endOfMonth = Carbon::parse($selectedDate)->endOfMonth();
+                    $query->whereBetween('tanggal_transaksi', [$startOfMonth, $endOfMonth]);
+                    break;
+            }
+        }
+
+        // Get the filtered transactions
+        $transaksi = $query->orderBy('tanggal_transaksi', 'desc')->get();
         $produk = Produk::all();
 
         return Inertia::render('TransaksiView', [
             'transaksi' => $transaksi,
             'produk' => $produk,
+            'filterParams' => [
+                'filter_type' => $filterType,
+                'selected_date' => $selectedDate
+            ]
         ]);
     }
+
 
     public function store(Request $request)
     {

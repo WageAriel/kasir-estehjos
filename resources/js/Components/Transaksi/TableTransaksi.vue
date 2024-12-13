@@ -1,6 +1,7 @@
 <script setup>
-import { defineProps, ref } from 'vue';
+import { defineProps, ref, computed, watch } from 'vue';
 import { useForm, router } from '@inertiajs/vue3';
+import { parseISO, startOfDay, endOfDay, startOfWeek, endOfWeek, startOfMonth, endOfMonth } from 'date-fns';
 
 const props = defineProps({
     transaksi: {
@@ -19,6 +20,13 @@ const props = defineProps({
 
 const isDetailModalOpen = ref(false);
 const selectedProducts = ref([]);
+const filterType = ref('all'); // 'all', 'daily', 'weekly', 'monthly'
+const selectedDate = ref(new Date());
+
+// Computed property to format the selectedDate to 'yyyy-MM-dd' format
+const formattedDate = computed(() => {
+  return selectedDate.value.toISOString().split('T')[0]; // Format to 'yyyy-MM-dd'
+});
 
 const form = useForm({
     transaksi_id: '',
@@ -27,6 +35,11 @@ const form = useForm({
     metode_pembayaran: '',
     kembalian: '',
     products: []
+});
+
+// Computed property for filtered transactions
+const filteredTransaksi = computed(() => {
+    return props.transaksi;
 });
 
 function openDetailModal(transaksiData) {
@@ -50,11 +63,92 @@ function destroy(transaksi_id) {
         router.delete(`/dashboard/transaksi/${transaksi_id}`);
     }
 }
+
+// Function to handle filter type change
+function changeFilterType(type) {
+    filterType.value = type;
+}
+
+// Function to change selected date
+function changeSelectedDate(newDate) {
+    selectedDate.value = new Date(newDate); // Ensure selectedDate is always a Date object
+}
+
+// Tambahkan watch untuk filterType dan selectedDate
+watch([filterType, selectedDate], ([newFilterType, newSelectedDate]) => {
+    router.get('/dashboard/transaksi', {
+        filter_type: newFilterType,
+        selected_date: formattedDate.value
+    }, {
+        preserveState: true,
+        preserveScroll: true,
+        replace: true
+    });
+});
 </script>
 
 <template>
     <div class="container mx-auto mt-6">
         <h1 class="text-2xl font-semibold">Daftar Transaksi</h1>
+
+        <!-- Filter Controls -->
+        <div class="flex items-center space-x-4 mb-4">
+            <div class="flex space-x-2">
+                <button
+                    @click="changeFilterType('all')"
+                    :class="[
+                        'px-4 py-2 rounded',
+                        filterType === 'all'
+                            ? 'bg-blue-500 text-white'
+                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                    ]"
+                >
+                    Semua
+                </button>
+                <button
+                    @click="changeFilterType('daily')"
+                    :class="[
+                        'px-4 py-2 rounded',
+                        filterType === 'daily'
+                            ? 'bg-blue-500 text-white'
+                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                    ]"
+                >
+                    Harian
+                </button>
+                <button
+                    @click="changeFilterType('weekly')"
+                    :class="[
+                        'px-4 py-2 rounded',
+                        filterType === 'weekly'
+                            ? 'bg-blue-500 text-white'
+                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                    ]"
+                >
+                    Mingguan
+                </button>
+                <button
+                    @click="changeFilterType('monthly')"
+                    :class="[
+                        'px-4 py-2 rounded',
+                        filterType === 'monthly'
+                            ? 'bg-blue-500 text-white'
+                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                    ]"
+                >
+                    Bulanan
+                </button>
+            </div>
+
+            <!-- Date Picker -->
+            <input
+                type="date"
+                :value="formattedDate"
+                @change="changeSelectedDate($event.target.value)"
+                class="px-4 py-2 border rounded"
+                :disabled="filterType === 'all'"
+            />
+        </div>
 
         <div v-if="successMessage" class="mt-4 p-4 bg-green-100 text-green-700 border border-green-300 rounded">
             {{ successMessage }}
@@ -72,7 +166,7 @@ function destroy(transaksi_id) {
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="transaksiData in transaksi" :key="transaksiData.transaksi_id">
+                <tr v-for="transaksiData in filteredTransaksi" :key="transaksiData.transaksi_id">
                     <td class="border px-4 py-2">{{ transaksiData.tanggal_transaksi }}</td>
                     <td class="border px-4 py-2">{{ transaksiData.detail_transaksi.length }} produk</td>
                     <td class="border px-4 py-2">Rp{{ transaksiData.total_jumlah }}</td>
