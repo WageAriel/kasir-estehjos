@@ -22,6 +22,7 @@ const isDetailModalOpen = ref(false);
 const selectedProducts = ref([]);
 const filterType = ref('all'); // 'all', 'daily', 'weekly', 'monthly'
 const selectedDate = ref(new Date());
+const selectedPaymentMethod = ref('all'); // New filter for payment method
 
 // Computed property to format the selectedDate to 'yyyy-MM-dd' format
 const formattedDate = computed(() => {
@@ -37,10 +38,71 @@ const form = useForm({
     products: []
 });
 
+// Predefined payment methods
+const paymentMethods = ['all', 'Cash', 'QRIS'];
+
 // Computed property for filtered transactions
 const filteredTransaksi = computed(() => {
-    return props.transaksi;
+    return props.transaksi.filter(transaksi => {
+        // Payment method filter
+        const paymentMethodMatch = selectedPaymentMethod.value === 'all' || 
+                                   transaksi.metode_pembayaran === selectedPaymentMethod.value;
+        
+        return paymentMethodMatch;
+    });
 });
+
+// New function to export transactions to CSV
+function exportToCSV() {
+    // Prepare CSV header
+    const headers = [
+        'Tanggal Transaksi', 
+        'Jumlah Produk', 
+        'Total', 
+        'Metode Pembayaran', 
+        'Kembalian', 
+        'Detail Produk'
+    ];
+
+    // Prepare CSV rows
+    const csvRows = filteredTransaksi.value.map(transaksi => {
+        // Create a detailed product string
+        const productDetails = transaksi.detail_transaksi
+            .map(detail => `${detail.produk.produk_name} (${detail.jumlah} x Rp${detail.subtotal / detail.jumlah})`)
+            .join(' | ');
+
+        return [
+            transaksi.tanggal_transaksi,
+            transaksi.detail_transaksi.length,
+            transaksi.total_jumlah,
+            transaksi.metode_pembayaran,
+            transaksi.kembalian,
+            productDetails
+        ];
+    });
+
+    // Combine headers and rows
+    const csvContent = [
+        headers,
+        ...csvRows
+    ].map(e => e.map(String).map(v => v.replace(/"/g, '""')).map(v => `"${v}"`).join(','))
+    .join('\n');
+
+    // Create and download CSV file
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    
+    // Generate filename based on filters
+    const filename = `transaksi_export_${filterType.value}_${selectedPaymentMethod.value}_${formattedDate.value}.csv`;
+
+    link.setAttribute('href', url);
+    link.setAttribute('download', filename);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
 
 function openDetailModal(transaksiData) {
     form.transaksi_id = transaksiData.transaksi_id;
@@ -74,11 +136,15 @@ function changeSelectedDate(newDate) {
     selectedDate.value = new Date(newDate); // Ensure selectedDate is always a Date object
 }
 
-// Tambahkan watch untuk filterType dan selectedDate
-watch([filterType, selectedDate], ([newFilterType, newSelectedDate]) => {
+function changePaymentMethod(method) {
+    selectedPaymentMethod.value = method;
+}
+
+watch([filterType, selectedDate, selectedPaymentMethod], ([newFilterType, newSelectedDate, newPaymentMethod]) => {
     router.get('/dashboard/transaksi', {
         filter_type: newFilterType,
-        selected_date: formattedDate.value
+        selected_date: formattedDate.value,
+        payment_method: newPaymentMethod
     }, {
         preserveState: true,
         preserveScroll: true,
@@ -138,6 +204,21 @@ watch([filterType, selectedDate], ([newFilterType, newSelectedDate]) => {
                 >
                     Bulanan
                 </button>
+                <!-- Payment Method Filter -->
+                <select 
+                    @change="changePaymentMethod($event.target.value)"
+                    class="px-7 py-2 border rounded"
+                >
+                    <option value="all">Semua Metode Pembayaran</option>
+                    <option value="cash">Cash</option>
+                    <option value="qris">QRIS</option>
+                </select>
+                <button 
+                @click="exportToCSV"
+                class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+            >
+                Export CSV
+            </button>
             </div>
 
             <!-- Date Picker -->
