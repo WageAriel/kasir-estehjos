@@ -90,7 +90,8 @@ class TransaksiController extends Controller
             }
 
             DB::commit();
-            return Redirect::route('transaksi')->with('success', 'Transaksi berhasil ditambahkan');
+return Redirect::route('receipt.show', $transaksi->transaksi_id)
+    ->with('success', 'Transaksi berhasil ditambahkan');
         } catch (\Exception $e) {
             DB::rollback();
             return Redirect::back()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan transaksi']);
@@ -112,5 +113,15 @@ class TransaksiController extends Controller
             DB::rollback();
             return Redirect::back()->withErrors(['error' => 'Terjadi kesalahan saat menghapus transaksi']);
         }
+    }
+
+    public function showReceipt(Transaksi $transaksi)
+    {
+        // Load the transaction with its related data
+        $transaksi->load(['detailTransaksi.produk']);
+        
+        return Inertia::render('ReceiptView', [
+            'transaksi' => $transaksi
+        ]);
     }
 }

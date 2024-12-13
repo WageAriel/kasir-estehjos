@@ -73,3 +73,5 @@ require __DIR__.'/detailTransaksiRoute.php';
 require __DIR__.'/kategoriRoute.php';
 require __DIR__.'/produkRoute.php';
 require __DIR__.'/kasirRoute.php';
+
+
