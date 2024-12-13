@@ -14,7 +14,7 @@ class TransaksiSeeder extends Seeder
     public function run(): void
     {
         // Membuat 10 transaksi sample
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 11; $i++) {
             // Buat transaksi utama
             $transaksi = Transaksi::create([
                 'tanggal_transaksi' => Carbon::now()->subDays(rand(0, 30)),

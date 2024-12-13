@@ -9,6 +9,7 @@ Route::middleware(['role:admin'])->group(function () {
     Route::put('dashboard/transaksi/{transaksi}', [TransaksiController::class, 'update'])->name('transaksi.update');
     Route::delete('dashboard/transaksi/{transaksi}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy');
 });
+Route::get('/transaksi/{transaksi}/receipt', [TransaksiController::class, 'showReceipt'])->name('receipt.show');
 // Route::get('/data-transaksi', [TransaksiController::class, 'getAllTransaksi']);
 
 require __DIR__ . '/auth.php';
