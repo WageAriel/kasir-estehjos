@@ -16,7 +16,7 @@
           class="flex flex-col items-center cursor-pointer"
           @click="changeKategori(kategori)"
         >
-          <h2 
+          <h2
             class="text-lg uppercase"
             :class="{'text-green-900': activeKategori === kategori, 'text-zinc-700': activeKategori !== kategori}"
           >
@@ -40,7 +40,12 @@
         >
           <div class="flex flex-col grow text-center text-neutral-700">
             <div class="flex shrink-0 bg-yellow-200 h-[250px]" role="img" :aria-label="product.produk_name">
-              <img :src="product.image || '/placeholder.jpg'" :alt="product.produk_name" class="object-cover w-full h-full rounded" />
+              <img
+                v-if="product.gambar"
+                :src="`/storage/${product.gambar}`"
+                :alt="product.produk_name"
+                class="object-cover w-full h-full rounded"
+              />
             </div>
             <h3 class="mt-2 text-xl font-semibold">{{ product.produk_name }}</h3>
             <span class="mt-1 text-lg">Rp {{ product.harga }}</span>
@@ -56,40 +61,51 @@ import { ref, computed, onMounted } from 'vue';
 import axios from 'axios';
 
 // Data produk
-const products = ref([]); // Produk akan diambil dari API
-const kategoriList = ref(['Sale', 'Hot', 'New Arrivals', 'Accessories']); // Daftar kategori
-
-// State kategori aktif
+const products = ref([]);
+const kategoriList = ref(['Sale', 'Hot', 'New Arrivals', 'Accessories']);
 const activeKategori = ref('Sale');
 
 onMounted(async () => {
   try {
-    const response = await axios.get('/produk/all'); // Endpoint untuk mengambil semua produk
-    products.value = response.data; // Simpan data produk
+    const response = await axios.get('/produk/all');
+    products.value = response.data;
+    console.log('Data produk:', products.value);
   } catch (error) {
     console.error('Gagal mengambil data produk:', error);
   }
 });
 
-// Method untuk mengganti kategori
 const changeKategori = (Kategori) => {
   activeKategori.value = Kategori;
 };
 
 // Filter produk berdasarkan kategori aktif
 const filteredProducts = computed(() => {
-  // Jika kategori aktif "Sale", tampilkan semua produk
+  console.log('Filtering products for kategori:', activeKategori.value);
+  console.log('Available products:', products.value);
+
   if (activeKategori.value === 'Sale') {
     return products.value;
   }
-  // Jika tidak, tampilkan produk berdasarkan kategori yang dipilih
   return products.value.filter(product => product.Kategori === activeKategori.value);
 });
 </script>
 
-
 <style scoped>
 .cursor-pointer {
   cursor: pointer;
+}
+
+img {
+  transition: transform 0.2s;
+}
+
+img:hover {
+  transform: scale(1.05);
+}
+
+.bg-yellow-200 {
+  overflow: hidden;
+  border-radius: 8px;
 }
 </style>
