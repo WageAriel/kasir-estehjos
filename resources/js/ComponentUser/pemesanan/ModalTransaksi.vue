@@ -4,6 +4,7 @@ import {
     watch
 } from 'vue';
 import { router } from '@inertiajs/vue3';
+import axios from 'axios';
 
 const props = defineProps({
     products: {
@@ -32,23 +33,48 @@ function closeModal() {
     emit('close-modal');
 }
 
-// Fungsi untuk mencetak struk dan mengurangi stok
-function printReceipt() {
-    // Reduce stock after printing
-    router.post(route('produk.reduce-stock'), {
-        products: props.products.map(product => ({
-            produk_id: product.produk_id,
-            quantity: product.quantity
-        }))
-    }, {
-        onSuccess: () => {
-            emit('clear-cart');
-            closeModal();
-        },
-        onError: (errors) => {
-            console.error('Stock reduction error:', errors);
+// Fungsi untuk menyimpan transaksi dan mencetak struk
+async function printReceipt() {
+    try {
+        // Persiapkan data transaksi sesuai dengan format yang diharapkan
+        const transactionData = {
+            tanggal_transaksi: new Date().toISOString(),
+            total_jumlah: form.totalPayment,
+            metode_pembayaran: 'QRIS',
+            kembalian: 0,
+            products: props.products.map(product => ({
+                produk_id: product.produk_id,
+                jumlah: product.quantity,
+                subtotal: product.quantity * product.harga
+            }))
+        };
+
+        // Gunakan route yang sudah ada
+        const response = await axios.post(route('transaksi.store'), transactionData);
+
+        if (response.data) {
+            // Kurangi stok produk
+            router.post(route('produk.reduce-stock'), {
+                products: props.products.map(product => ({
+                    produk_id: product.produk_id,
+                    quantity: product.quantity
+                }))
+            }, {
+                onSuccess: () => {
+                    emit('clear-cart');
+                    closeModal();
+                    alert('Transaksi berhasil!');
+                },
+                onError: (errors) => {
+                    console.error('Stock reduction error:', errors);
+                    alert('Gagal mengurangi stok produk!');
+                }
+            });
         }
-    });
+    } catch (error) {
+        console.error('Transaction error:', error);
+        alert('Gagal menyimpan transaksi!');
+    }
 }
 </script>
 

@@ -15,8 +15,12 @@
                                 class="flex flex-col justify-center items-end px-8 py-10 mt-4 w-full border border-gray-400 border-solid max-w-[1010px] min-h-[180px] max-md:px-5 max-md:max-w-full">
                                 <div
                                     class="flex flex-wrap gap-10 justify-between items-center w-full max-w-[930px] max-md:max-w-full">
-                                    <img :src="item.image" :alt="item.produk_name"
-                                        class="object-contain shrink-0 self-stretch my-auto aspect-square w-[100px]" />
+                                    <img
+                                        v-if="item.gambar"
+                                        :src="`/storage/${item.gambar}`"
+                                        :alt="item.produk_name"
+                                        class="object-contain shrink-0 self-stretch my-auto aspect-square w-[100px]"
+                                    />
                                     <div class="flex flex-col self-stretch my-auto min-w-[240px] w-[344px]">
                                         <h3 class="text-lg font-semibold uppercase text-neutral-900">
                                             {{ item.produk_name }}</h3>
@@ -72,8 +76,12 @@
                                 <div v-for="item in cart" :key="item.produk_id" class="px-0.5 py-1.5 w-full">
                                     <div class="flex gap-5 max-md:flex-col">
                                         <div class="flex flex-col w-[24%] max-md:ml-0 max-md:w-full">
-                                            <img :src="item.image" alt="Product image"
-                                                class="object-contain shrink-0 aspect-square w-[90px] max-md:mt-8" />
+                                            <img
+                                                v-if="item.gambar"
+                                                :src="`/storage/${item.gambar}`"
+                                                :alt="item.produk_name"
+                                                class="object-contain shrink-0 aspect-square w-[90px] max-md:mt-8"
+                                            />
                                         </div>
                                         <div class="flex flex-col ml-5 w-[76%] max-md:ml-0 max-md:w-full">
                                             <div class="flex flex-col w-full text-lg max-md:mt-7">
@@ -137,9 +145,17 @@
                                     </p>
                                 </div>
                                 <div class="flex justify-center mt-4">
-                                    <button @click="openModal"
-                                        class="px-6 py-2 bg-blue-600 text-white text-lg font-semibold rounded-full">
-                                        Konfirmasi Pembayaran
+                                    <button
+                                        @click="openModal"
+                                        :disabled="cart.length === 0"
+                                        :class="[
+                                            'px-6 py-2 text-lg font-semibold rounded-full',
+                                            cart.length === 0
+                                                ? 'bg-gray-400 cursor-not-allowed'
+                                                : 'bg-blue-600 text-white hover:bg-blue-700'
+                                        ]"
+                                    >
+                                        {{ cart.length === 0 ? 'Keranjang Kosong' : 'Konfirmasi Pembayaran' }}
                                     </button>
                                 </div>
                             </div>
@@ -193,6 +209,7 @@ const clearCart = () => {
         const savedCart = localStorage.getItem('cart');
         if (savedCart) {
             cart.value = JSON.parse(savedCart);
+            console.log('Cart data:', cart.value); // Untuk debugging
         }
     });
 
@@ -234,4 +251,23 @@ const clearCart = () => {
         return subtotal.value; // You can add shipping, discount, and tax logic here
     });
 
+    // Computed property untuk mengecek apakah cart kosong
+    const isCartEmpty = computed(() => {
+        return cart.value.length === 0;
+    });
+
 </script>
+
+<style scoped>
+    /* Tambahkan style untuk button disabled */
+    button:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
+    /* Optional: Tambahkan hover effect hanya untuk button yang tidak disabled */
+    button:not(:disabled):hover {
+        transform: translateY(-1px);
+        transition: transform 0.2s;
+    }
+</style>

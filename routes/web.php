@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\TransaksiController;
 
 // Route::get('/', function () {
 //     return Inertia::render('LandingView');
@@ -28,11 +29,11 @@ Route::get('/cart', function () {
 })->name('cart');
 
 Route::get('/featured', function () {
-    return Inertia::render('FeaturesView');
+    return Inertia::render('Landing/FeaturesView');
 })->name('featured');
 
 Route::get('/contact', function () {
-    return Inertia::render('ContactView');
+    return Inertia::render('Landing/ContactView');
 })->name('contact');
 
 Route::get('/dashboard', function () {
@@ -77,5 +78,6 @@ require __DIR__.'/kasirRoute.php';
 
 Route::resource('produk', ProdukController::class);
 Route::post('/dashboard/produk/{produk}', [ProdukController::class, 'update'])->name('produk.update');
+
 
 
