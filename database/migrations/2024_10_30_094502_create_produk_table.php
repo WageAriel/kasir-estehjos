@@ -14,6 +14,7 @@ class CreateProdukTable extends Migration
             $table->string('harga');
             $table->integer('stok');
             $table->text('deskripsi')->nullable();
+            $table->string('gambar')->nullable();
             $table->timestamps();
 
             // Foreign key

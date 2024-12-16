@@ -22,7 +22,8 @@ class Produk extends Model
         'kategori_id',
         'harga',
         'stok',
-        'deskripsi'
+        'deskripsi',
+        'gambar'
     ];
 
     // Menentukan relasi dengan model Kategori

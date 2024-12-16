@@ -50,13 +50,22 @@
                                             class="flex flex-col w-80 max-w-full text-base text-center lowercase whitespace-nowrap text-stone-200">
                                             <div
                                                 class="flex relative flex-col items-start pb-40 w-full aspect-[0.958] max-md:pr-5 max-md:pb-24">
-                                                <img loading="lazy" :src="item.image" :alt="item.produk_name"
-                                                    class="object-cover absolute inset-0 size-[300px]" />
+                                                <img
+                                                    v-if="item.gambar"
+                                                    :src="`/storage/${item.gambar}`"
+                                                    :alt="item.produk_name"
+                                                    class="object-cover absolute inset-0 size-[300px]"
+                                                />
                                             </div>
                                         </div>
                                         <div
                                             class="flex flex-col items-center mt-6 w-full max-w-xs uppercase text-stone-800">
-                                            <h3 class="text-xl font-semibold text-center">{{ item.produk_name }}</h3>
+                                            <h3 class="text-xl font-semibold text-center" :title="item.produk_name">
+                                                {{ truncateText(item.produk_name, 15) }}
+                                            </h3>
+                                            <p class="text-sm text-gray-600 mt-2 text-center" :title="item.deskripsi">
+                                                {{ truncateText(item.deskripsi, 50) }}
+                                            </p>
                                             <div
                                                 class="flex gap-2 items-center mt-2 text-3xl font-bold whitespace-nowrap">
                                                 <div class="flex gap-1.5 items-start self-stretch my-auto">
@@ -86,7 +95,7 @@
                                 </div>
                             </div>
                             <div v-else>
-                                <component :is="currentView" :search-query="searchQuery"/>
+                                <component :is="currentView" :search-query="searchQuery" />
                             </div>
 
                             <!-- <div>
@@ -135,24 +144,24 @@
             const searchQuery = ref('');
 
             const filteredItems = computed(() => {
-  let filtered = itemsProduk.value;
+                let filtered = itemsProduk.value;
 
-  // Filter berdasarkan kategori (jika isFiltering aktif)
-  if (isFiltering.value && currentView.value === 'Sembako') {
-    filtered = filtered.filter(item => item.kategori === 'Sembako');
-  } else if (isFiltering.value && currentView.value === 'Minuman') {
-    filtered = filtered.filter(item => item.kategori === 'Minuman');
-  }
+                // Filter berdasarkan kategori (jika isFiltering aktif)
+                if (isFiltering.value && currentView.value === 'Sembako') {
+                    filtered = filtered.filter(item => item.kategori === 'Sembako');
+                } else if (isFiltering.value && currentView.value === 'Minuman') {
+                    filtered = filtered.filter(item => item.kategori === 'Minuman');
+                }
 
-  // Filter berdasarkan kata kunci pencarian
-  if (searchQuery.value.trim() !== '') {
-    filtered = filtered.filter(item =>
-      item.produk_name.toLowerCase().includes(searchQuery.value.toLowerCase())
-    );
-  }
+                // Filter berdasarkan kata kunci pencarian
+                if (searchQuery.value.trim() !== '') {
+                    filtered = filtered.filter(item =>
+                        item.produk_name.toLowerCase().includes(searchQuery.value.toLowerCase())
+                    );
+                }
 
-  return filtered;
-});
+                return filtered;
+            });
 
             const itemsProduk = ref([]);
             const itemsPerPage = 12;
@@ -250,6 +259,17 @@
                 }
             };
 
+            // Fungsi untuk menangani error gambar
+            const handleImageError = (e) => {
+                e.target.src = '/images/default-product.png'; // Ganti dengan path gambar default
+            };
+
+            // Fungsi untuk memotong teks
+            const truncateText = (text, length) => {
+                if (!text) return '';
+                return text.length > length ? text.substring(0, length) + '...' : text;
+            };
+
             return {
                 items,
                 // allItems,
@@ -267,6 +287,7 @@
                 goToCart,
                 searchQuery,
                 filteredItems,
+                truncateText,
 
             };
         },
@@ -279,6 +300,27 @@
     .size-full {
         width: 100%;
         height: 100%;
+    }
+
+    /* Tambahkan style untuk hover tooltip */
+    [title] {
+        position: relative;
+        cursor: pointer;
+    }
+
+    [title]:hover::after {
+        content: attr(title);
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 5px 10px;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        border-radius: 4px;
+        font-size: 14px;
+        white-space: nowrap;
+        z-index: 10;
     }
 
 </style>

@@ -24,15 +24,21 @@
         kategori: null,
         harga: '',
         stok: '',
-        deskripsi: ''
+        deskripsi: '',
+        gambar: null
     });
+
+    // Fungsi untuk handle file upload
+    const handleFileUpload = (event) => {
+        form.gambar = event.target.files[0];
+    };
 
     // Fungsi untuk submit form
     const submitForm = () => {
         form.post('/api/produk', {
             onSuccess: () => {
                 router.get(route('produk')); // Setelah berhasil, arahkan kembali ke halaman kategori
-                alert('Kategori berhasil ditambahkan!'); // Menampilkan alert success},
+                alert('Produk berhasil ditambahkan!'); // Menampilkan alert success},
             },
             onError: () => {
                 /* handle error */ },
@@ -129,6 +135,24 @@
                 </div>
                 <div v-if="form.errors.deskripsi" class="text-red-500 text-sm mt-1">
                     {{ form.errors.deskripsi }}
+                </div>
+            </div>
+
+            <!-- Input Gambar -->
+            <div>
+                <label class="mb-3 block text-sm font-medium text-black dark:text-white">
+                    Gambar Produk
+                </label>
+                <div class="relative">
+                    <input
+                        type="file"
+                        @input="handleFileUpload"
+                        accept="image/*"
+                        class="w-full rounded-lg border-[1.5px] text-black border-stroke bg-transparent py-3 px-5 font-normal outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:text-white dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                    />
+                </div>
+                <div v-if="form.errors.gambar" class="text-red-500 text-sm mt-1">
+                    {{ form.errors.gambar }}
                 </div>
             </div>
 

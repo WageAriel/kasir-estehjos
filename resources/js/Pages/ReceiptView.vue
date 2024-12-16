@@ -36,23 +36,23 @@ onMounted(() => {
                         style="border-bottom: 1px dashed #000;">
                         <td>
                             {{ detail.jumlah }} x {{ detail.produk.produk_name }}
-                            ({{ new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(detail.produk.harga) }})
+                            ({{ detail.produk.harga }})
                         </td>
                         <td style="text-align: right;">
-                            {{ new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(detail.subtotal) }}
+                            {{ detail.subtotal }}
                         </td>
                     </tr>
                 </tbody>
             </table>
             <hr />
             <div>
-                <p style="text-align: right;"><strong>Total:</strong> 
-                    {{ new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaksi.total_jumlah) }}
+                <p style="text-align: right;"><strong>Total:</strong>
+                    {{ transaksi.total_jumlah }}
                 </p>
             </div>
             <div v-if="transaksi.metode_pembayaran === 'Cash'">
-                <p style="text-align: right;"><strong>Kembalian:</strong> 
-                    {{ new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(transaksi.kembalian) }}
+                <p style="text-align: right;"><strong>Kembalian:</strong>
+                    {{ transaksi.kembalian }}
                 </p>
             </div>
             <hr />
@@ -86,4 +86,4 @@ onMounted(() => {
         margin: 5px 0;
     }
 }
-</style> 
+</style>

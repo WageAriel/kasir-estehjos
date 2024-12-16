@@ -7,6 +7,7 @@ use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 
 class ProdukController extends Controller
 {
@@ -46,10 +47,19 @@ public function getMinuman()
 
 public function getAllProducts()
 {
-    // Ambil semua data produk tanpa relasi kategori
-    $allProducts = Produk::all();
+    $allProducts = Produk::with('kategori')->get()->map(function ($product) {
+        return [
+            'produk_id' => $product->produk_id,
+            'produk_name' => $product->produk_name,
+            'kategori_id' => $product->kategori_id,
+            'kategori' => $product->kategori->kategori ?? null,
+            'harga' => $product->harga,
+            'stok' => $product->stok,
+            'deskripsi' => $product->deskripsi,
+            'gambar' => $product->gambar // Path relatif ke gambar
+        ];
+    });
 
-    // Kembalikan data dalam format JSON
     return response()->json($allProducts);
 }
 
@@ -70,7 +80,15 @@ public function getAllProducts()
             'harga' => 'required|numeric',
             'stok' => 'required|integer',
             'deskripsi' => 'nullable|string',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
+
+        if ($request->hasFile('gambar')) {
+            $gambar = $request->file('gambar');
+            $namaGambar = time() . '.' . $gambar->getClientOriginalExtension();
+            $gambar->storeAs('public/Sembako', $namaGambar);
+            $pathGambar = 'Sembako/' . $namaGambar;
+        }
 
         Produk::create([
             'produk_name' => $validated['produk_name'],
@@ -78,6 +96,7 @@ public function getAllProducts()
             'harga' => $validated['harga'],
             'stok' => $validated['stok'],
             'deskripsi' => $validated['deskripsi'],
+            'gambar' => $pathGambar ?? null,
         ]);
 
         return Redirect::route('produk')->with('success', 'Produk berhasil ditambahkan');
@@ -97,16 +116,35 @@ public function getAllProducts()
             'harga' => 'required|numeric',
             'stok' => 'required|integer',
             'deskripsi' => 'nullable|string',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        $produk->update([
+        $dataUpdate = [
             'produk_name' => $validated['produk_name'],
             'kategori_id' => $validated['kategori'],
             'harga' => $validated['harga'],
             'stok' => $validated['stok'],
             'deskripsi' => $validated['deskripsi'],
-        ]);
-        return Redirect::route('produk')->with('success', 'Produk berhasil diperbarui');
+        ];
+
+        try {
+            if ($request->hasFile('gambar')) {
+                // Hapus gambar lama jika ada
+                if ($produk->gambar) {
+                    Storage::delete('public/' . $produk->gambar);
+                }
+
+                $gambar = $request->file('gambar');
+                $namaGambar = time() . '.' . $gambar->getClientOriginalExtension();
+                $gambar->storeAs('public/Sembako', $namaGambar);
+                $dataUpdate['gambar'] = 'Sembako/' . $namaGambar;
+            }
+
+            $produk->update($dataUpdate);
+            return response()->json(['message' => 'Produk berhasil diperbarui'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Gagal memperbarui produk', 'error' => $e->getMessage()], 500);
+        }
     }
 
     public function reduceStock(Request $request)

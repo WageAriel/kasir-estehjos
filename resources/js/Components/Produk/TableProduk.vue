@@ -29,7 +29,8 @@
         kategori: null,
         harga: '',
         stok: '',
-        deskripsi: ''
+        deskripsi: '',
+        gambar: null
     });
 
     // Delete functionality
@@ -57,11 +58,20 @@
         form.harga = produkData.harga;
         form.stok = produkData.stok;
         form.deskripsi = produkData.deskripsi;
+        form.gambar = produkData.gambar;
         isEditModalOpen.value = true;
     }
 
     function saveChanges() {
-        form.put(`/dashboard/produk/${form.produk_id}`, {
+        const formData = new FormData();
+        Object.keys(form).forEach(key => {
+            formData.append(key, form[key]);
+        });
+
+        // Tambahkan method _method untuk simulasi PUT
+        formData.append('_method', 'PUT');
+
+        form.post(`/dashboard/produk/${form.produk_id}`, formData, {
             onSuccess: () => {
                 closeEditModal();
                 alert('Produk berhasil diupdate!');
@@ -78,12 +88,17 @@
         form.reset();
     }
 
+    const handleFileUpload = (event) => {
+        form.gambar = event.target.files[0];
+    };
+
 </script>
 
 <template>
     <table>
         <thead>
             <tr>
+                <th>Gambar</th>
                 <th>ID Produk</th>
                 <th>Nama Produk</th>
                 <th>Kategori</th>
@@ -95,6 +110,13 @@
         </thead>
         <tbody>
             <tr v-for="produkData in produk" :key="produkData.produk_id">
+                <td>
+                    <img
+                        :src="`/storage/${produkData.gambar}`"
+                        :alt="produkData.produk_name"
+                        class="w-16 h-16 object-cover rounded"
+                    />
+                </td>
                 <td data-label="Nama Produk">{{ produkData.produk_id }}</td>
                 <td data-label="Nama Produk">{{ produkData.produk_name }}</td>
                 <td data-label="Kategori">{{ produkData.kategori ? produkData.kategori.kategori : 'N/A' }}</td>
@@ -173,6 +195,23 @@
                     <label for="deskripsi" class="block text-sm font-medium text-gray-700">Deskripsi</label>
                     <textarea v-model="form.deskripsi" class="mt-1 p-2 w-full border rounded"></textarea>
                     <div class="text-danger text-xs" v-if="errors.deskripsi">{{ errors.deskripsi }}</div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700">Gambar Produk</label>
+                    <div class="mt-2">
+                        <img
+                            v-if="form.gambar && typeof form.gambar === 'string'"
+                            :src="`/storage/${form.gambar}`"
+                            class="w-32 h-32 object-cover rounded mb-2"
+                        />
+                        <input
+                            type="file"
+                            @input="handleFileUpload"
+                            accept="image/*"
+                            class="w-full border rounded p-2"
+                        />
+                    </div>
                 </div>
 
                 <div class="flex justify-end space-x-2">

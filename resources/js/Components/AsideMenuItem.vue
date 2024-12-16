@@ -1,16 +1,24 @@
 <script setup>
-import { ref, computed } from 'vue'
 import { Link } from '@inertiajs/vue3'
+import { ref, computed } from 'vue'
 // import { RouterLink } from 'vue-router'
 import { mdiMinus, mdiPlus } from '@mdi/js'
 import { getButtonColor } from '@/colors.js'
+import { useDarkModeStore } from '@/Stores/darkMode.js'
 import BaseIcon from '@/Components/BaseIcon.vue'
 import AsideMenuList from '@/Components/AsideMenuList.vue'
 
+// Mendapatkan store dark mode
+const darkModeStore = useDarkModeStore()
+
+// Add itemHref
 const itemHref = computed(() => (props.item.route ? route(props.item.route) : props.item.href))
 
+// Add activeInactiveStyle
 const activeInactiveStyle = computed(() =>
   props.item.route && route().current(props.item.route)
+    ? darkModeStore.asideMenuItemActiveStyle
+    : ''
 )
 
 const props = defineProps({

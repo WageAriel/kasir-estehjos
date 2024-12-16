@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\ProdukController;
 
 // Route::get('/', function () {
 //     return Inertia::render('LandingView');
@@ -73,5 +74,8 @@ require __DIR__.'/detailTransaksiRoute.php';
 require __DIR__.'/kategoriRoute.php';
 require __DIR__.'/produkRoute.php';
 require __DIR__.'/kasirRoute.php';
+
+Route::resource('produk', ProdukController::class);
+Route::post('/dashboard/produk/{produk}', [ProdukController::class, 'update'])->name('produk.update');
 
 

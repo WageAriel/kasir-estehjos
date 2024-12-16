@@ -1,15 +1,16 @@
 <script setup>
-import { mdiChevronUp, mdiChevronDown } from '@mdi/js'
 import { Link } from '@inertiajs/vue3'
+import { usePage } from '@inertiajs/vue3'
+import { mdiChevronUp, mdiChevronDown } from '@mdi/js'
 // import { RouterLink } from 'vue-router'
 import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
-import { usePage } from '@inertiajs/vue3'
-// import { useMainStore } from '@/stores/main.js'
+// import { useMainStore } from '@/Stores/main.js'
 import BaseIcon from '@/Components/BaseIcon.vue'
 import UserAvatarCurrentUser from '@/Components/UserAvatarCurrentUser.vue'
 import NavBarMenuList from '@/Components/NavBarMenuList.vue'
 import BaseDivider from '@/Components/BaseDivider.vue'
 
+// Add itemHref
 const itemHref = computed(() => (props.item.route ? route(props.item.route) : props.item.href))
 
 const props = defineProps({
@@ -49,7 +50,7 @@ const componentClass = computed(() => {
 })
 
 const itemLabel = computed(() =>
-  props.item.isCurrentUser ? usePage().props.auth.user.name : props.item.label
+  props.item.isCurrentUser ? (usePage().props.auth.user ? usePage().props.auth.user.username : '') : props.item.label
 )
 
 const isDropdownActive = ref(false)
@@ -95,8 +96,7 @@ onBeforeUnmount(() => {
     ref="root"
     class="block lg:flex items-center relative cursor-pointer"
     :class="componentClass"
-    :to="item.to ?? null"
-    :href="item.href ?? null"
+    :href="itemHref"
     :target="item.target ?? null"
     @click="menuClick"
   >

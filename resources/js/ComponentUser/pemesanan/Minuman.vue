@@ -6,14 +6,22 @@
                 class="flex flex-col p-5 border border-solid border-stone-200 min-w-[240px] w-[300px]">
                 <div data-layername="foto"
                     class="flex flex-col w-80 max-w-full text-base text-center lowercase whitespace-nowrap text-stone-200">
-                    <div
-                        class="flex relative flex-col items-start pb-40 w-full aspect-[0.958] max-md:pr-5 max-md:pb-24">
-                        <img loading="lazy" :src="item.image" :alt="item.produk_name"
-                            class="object-cover absolute inset-0 size-[300px]" />
+                    <div class="flex relative flex-col items-start pb-40 w-full aspect-[0.958] max-md:pr-5 max-md:pb-24">
+                        <img
+                            v-if="item.gambar"
+                            :src="`/storage/${item.gambar}`"
+                            :alt="item.produk_name"
+                            class="object-cover absolute inset-0 size-[300px]"
+                        />
                     </div>
                 </div>
                 <div class="flex flex-col items-center mt-6 w-full max-w-xs uppercase text-stone-800">
-                    <h3 class="text-xl font-semibold text-center">{{ item.produk_name }}</h3>
+                    <h3 class="text-xl font-semibold text-center" :title="item.produk_name">
+                        {{ truncateText(item.produk_name, 15) }}
+                    </h3>
+                    <p class="text-sm text-gray-600 mt-2 text-center" :title="item.deskripsi">
+                        {{ truncateText(item.deskripsi, 50) }}
+                    </p>
                     <div class="flex gap-2 items-center mt-2 text-3xl font-bold whitespace-nowrap">
                         <div class="flex gap-1.5 items-start self-stretch my-auto">
                             <span class="text-center">Rp</span>
@@ -42,138 +50,115 @@
     </div>
 </template>
 
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+import axios from 'axios';
 
-<script lang="ts">
-import {
-    defineComponent,
-    ref,
-    computed,
-    onMounted
-} from "vue";
-import axios from "axios";
-import { usePage } from '@inertiajs/inertia-vue3'; // Menggunakan usePage untuk navigasi
-
-export default defineComponent({
-    props: {
+const props = defineProps({
     searchQuery: {
-      type: String,
-      required: true,
-    },
-  },
-    setup(props) {
-        const items = ref([]);
-        const itemsPerPage = 12;
-        const currentPage = ref(1);
-        const cart = ref([]);
+        type: String,
+        required: true
+    }
+});
 
-        // Mengambil data produk kategori Sembako dari API
-        onMounted(async () => {
-            try {
-                const response = await axios.get('/produk/minuman');
-                items.value = response.data; // Menyimpan data produk
-            } catch (error) {
-                console.error('Gagal mengambil data produk:', error);
-            }
+const items = ref([]);
+const itemsPerPage = 12;
+const currentPage = ref(1);
+const cart = ref([]);
 
-            // Ambil data keranjang dari localStorage saat halaman dimuat
-            const savedCart = localStorage.getItem('cart');
-            if (savedCart) {
-                cart.value = JSON.parse(savedCart);
-            }
-        });
+onMounted(async () => {
+    try {
+        const response = await axios.get('/produk/minuman');
+        items.value = response.data;
+    } catch (error) {
+        console.error('Gagal mengambil data produk:', error);
+    }
 
-        const filteredItems = computed(() => {
-      if (props.searchQuery.trim() === '') {
-        return items.value; // Jika tidak ada kata kunci, tampilkan semua produk
-      }
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
+        cart.value = JSON.parse(savedCart);
+    }
+});
 
-      return items.value.filter((item) =>
+const truncateText = (text, length) => {
+    if (!text) return '';
+    return text.length > length ? text.substring(0, length) + '...' : text;
+};
+
+const filteredItems = computed(() => {
+    if (props.searchQuery.trim() === '') {
+        return items.value;
+    }
+    return items.value.filter((item) =>
         item.produk_name.toLowerCase().includes(props.searchQuery.toLowerCase())
-      );
-    });
+    );
+});
 
-        // Menambahkan produk ke keranjang
-        const addToCart = (item) => {
+const sortedItems = computed(() => {
+    return filteredItems.value.slice().sort((a, b) =>
+        a.produk_name.localeCompare(b.produk_name)
+    );
+});
+
+const totalPages = computed(() => Math.ceil(sortedItems.value.length / itemsPerPage));
+
+const paginatedItems = computed(() => {
+    const start = (currentPage.value - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    return sortedItems.value.slice(start, end);
+});
+
+const previousPage = () => {
+    if (currentPage.value > 1) {
+        currentPage.value--;
+        scrollToTop();
+    }
+};
+
+const nextPage = () => {
+    if (currentPage.value < totalPages.value) {
+        currentPage.value++;
+        scrollToTop();
+    }
+};
+
+const scrollToTop = () => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+};
+
+const addToCart = (item) => {
     const found = cart.value.find((cartItem) => cartItem.produk_id === item.produk_id);
     if (found) {
         found.quantity++;
     } else {
         cart.value.push({ ...item, quantity: 1 });
     }
-
-    // Simpan data keranjang ke localStorage
     localStorage.setItem('cart', JSON.stringify(cart.value));
-
-    // Tampilkan notifikasi
     alert(`${item.produk_name} berhasil ditambahkan ke keranjang!`);
 };
-
-        // Mengurutkan produk berdasarkan nama
-        const sortedItems = computed(() => {
-            return filteredItems.value.slice().sort((a, b) =>
-        a.produk_name.localeCompare(b.produk_name)
-      );
-        });
-
-        // Menghitung total halaman
-        const totalPages = computed(() => Math.ceil(sortedItems.value.length / itemsPerPage));
-
-        // Mendapatkan item yang akan ditampilkan pada halaman saat ini
-        const paginatedItems = computed(() => {
-            const start = (currentPage.value - 1) * itemsPerPage;
-            const end = start + itemsPerPage;
-            return sortedItems.value.slice(start, end);
-        });
-
-        // Fungsi untuk berpindah ke halaman sebelumnya
-        const previousPage = () => {
-            if (currentPage.value > 1) {
-                currentPage.value--;
-                scrollToTop();
-            }
-        };
-
-        // Fungsi untuk berpindah ke halaman berikutnya
-        const nextPage = () => {
-            if (currentPage.value < totalPages.value) {
-                currentPage.value++;
-                scrollToTop();
-            }
-        };
-
-        // Fungsi untuk scroll ke atas
-        const scrollToTop = () => {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        };
-
-        // Fungsi untuk pergi ke halaman cart
-        const goToCart = () => {
-            // Navigasi ke halaman keranjang
-            window.location.href = '/cart';  // Bisa juga menggunakan Inertia.js navigasi
-        };
-
-        return {
-            items,
-            paginatedItems,
-            currentPage,
-            totalPages,
-            previousPage,
-            nextPage,
-            cart,
-            addToCart,
-            goToCart
-        };
-    },
-});
 </script>
 
-
 <style scoped>
-    .size-full {
-        width: 100%;
-        height: 100%;
-    }
+[title] {
+    position: relative;
+    cursor: pointer;
+}
+
+[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 5px 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: nowrap;
+    z-index: 10;
+}
 </style>
