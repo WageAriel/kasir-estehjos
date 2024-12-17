@@ -64,11 +64,7 @@
                             class="flex flex-col px-11 pt-10 pb-11 mx-auto w-full bg-white border border-gray-400 border-solid max-md:px-5 max-md:mt-10 max-md:max-w-full">
                             <div
                                 class="flex gap-10 justify-between items-center pb-2 max-w-full text-2xl font-semibold leading-10 whitespace-nowrap h-[42px] text-slate-950 w-[400px]">
-                                <h2 class="self-stretch my-auto">Pesanan</h2>
-                                <img loading="lazy"
-                                    src="https://cdn.builder.io/api/v1/image/assets/d32ba014fd2f43b69edb017a43e6b422/560de91c45eae0fef1b22a18da4f44856d91fc7ffa4e073651fb368ce316dba3?apiKey=d32ba014fd2f43b69edb017a43e6b422&"
-                                    alt=""
-                                    class="object-contain shrink-0 self-stretch my-auto aspect-square rounded-[100px] w-[30px]" />
+                                <h2 class="self-stretch my-auto">Struk</h2>
                             </div>
 
                             <!-- Cart Item List for Sidebar -->
@@ -123,16 +119,6 @@
                                     class="flex gap-10 justify-between items-start py-2 mt-2 w-full text-lg whitespace-nowrap">
                                     <p class="text-neutral-900">Shipping</p>
                                     <p class="font-bold text-right text-green-700">FREE</p>
-                                </div>
-                                <div
-                                    class="flex gap-10 justify-between items-start py-2 mt-2 w-full text-lg whitespace-nowrap text-neutral-900">
-                                    <p>Discount</p>
-                                    <p class="font-bold text-right">-</p>
-                                </div>
-                                <div
-                                    class="flex gap-10 justify-between items-start py-2 mt-2 w-full text-lg whitespace-nowrap text-neutral-900">
-                                    <p>Tax</p>
-                                    <p class="font-bold text-right">-</p>
                                 </div>
                                 <div class="flex flex-col justify-center py-2.5 mt-2 w-full">
                                     <hr

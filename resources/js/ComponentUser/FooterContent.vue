@@ -44,43 +44,31 @@
           <div class="w-[93px] h-[228px] relative">
             <div class="left-0 top-0 absolute text-black text-[22px] font-medium font-['Roboto Slab'] uppercase">SHOP</div>
             <Link href="/pemesanan" class="left-0 top-[54px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">Products</Link>
-            <Link href="" class="left-0 top-[102px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">Overview</Link>
-            <Link href="/cart" class="left-0 top-[150px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">Pricing</Link>
-            <Link href="" class="left-0 top-[198px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">Releases</Link>
+            <Link href="/pemesanan" class="left-0 top-[102px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">Releases</Link>
           </div>
 
           <!-- Company Links -->
           <div class="w-[113px] h-[228px] relative">
-            <Link href="" class="left-0 top-0 absolute text-black text-[22px] font-medium font-['Roboto Slab'] uppercase">COMPANY</Link>
-            <Link href="" class="left-0 top-[54px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">About Us</Link>
-            <Link href="" class="left-0 top-[102px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">Contact</Link>
-            <Link href="" class="left-0 top-[150px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">News</Link>
-            <Link href="" class="left-0 top-[198px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">Support</Link>
+            <div class="left-0 top-0 absolute text-black text-[22px] font-medium font-['Roboto Slab'] uppercase">COMPANY</div>
+            <Link href="/featured" class="left-0 top-[54px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">About Us</Link>
+            <Link href="/contact" class="left-0 top-[102px] absolute text-black text-xl font-medium font-['Poppins'] capitalize">Contact</Link>
           </div>
 
           <!-- Newsletter Subscription -->
-          <div class="w-[487px]">
-            <h2 class="text-black text-[22px] font-medium font-['Roboto Slab'] uppercase">Stay up to date</h2>
-            <form class="flex items-center gap-2 mt-2">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                class="flex-grow h-[57px] px-3 border-2 border-black bg-transparent rounded-[3px] text-xl font-['Poppins']"
-                required
-              />
-              <button type="submit" class="w-[115px] h-[57px] bg-black text-[#f9a825] text-xl font-medium font-['Poppins'] uppercase">
-                Submit
-              </button>
-            </form>
+          <div class="w-[487px]">            
           </div>
         </div>
 
         <!-- Footer Links -->
         <nav class="flex flex-wrap gap-5 justify-between mt-8 text-xl font-semibold text-black whitespace-nowrap">
-          <hr class="shrink-0 my-auto max-w-full h-0.5 border-2 border-black border-solid w-[1051px]" />
-          <a href="#">Terms</a>
-          <a href="#">Privacy</a>
-          <a href="#">Cookies</a>
+            <div class="flex justify-between w-full border-t border-gray-800 pt-4">
+                <p class="text-sm font-semibold">Designed by Cowo Imoet</p>
+                <nav class="flex gap-4">
+                    <a href="#" class="hover:underline">Privacy Policy</a>
+                    <a href="#" class="hover:underline">Terms of Service</a>
+                    <a href="#" class="hover:underline">Cookies Settings</a>
+                </nav>
+            </div>
         </nav>
       </div>
     </div>

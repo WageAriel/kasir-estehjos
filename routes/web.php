@@ -1,11 +1,16 @@
 <?php
 
+<<<<<<< Updated upstream
 use App\Http\Controllers\DashboardController;
+=======
+use App\Http\Controllers\FeedbackController;
+>>>>>>> Stashed changes
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\TransaksiController;
+use App\Models\Feedback;
 
 // Route::get('/', function () {
 //     return Inertia::render('LandingView');
@@ -61,15 +66,12 @@ Route::middleware(['role:admin'])->group(function () {
     })->middleware(['auth', 'verified'])->name('detail');
 });
 
-//   Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-//     return Inertia::render('Home');
-// })->name('dashboard');
-
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
+// Feedback routes
+Route::controller(FeedbackController::class)->group(function () {
+    Route::get('/', 'index')->name('feedback.index');
+    Route::post('/', 'store')->name('feedback.store');
+    Route::delete('/feedback/{feedback}', 'destroy')->name('feedback.destroy');
+});
 
 require __DIR__.'/auth.php';
 require __DIR__.'/transaksiRoute.php';

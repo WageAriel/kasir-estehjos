@@ -68,17 +68,6 @@ import MainLayout from '@/ComponentUser/layout/MainLayout.vue';
               class="mt-1 w-full border border-green-400 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-green-400"
             />
           </div>
-
-          <!-- Company -->
-          <div>
-            <label for="company" class="block text-sm font-medium text-gray-600">Company</label>
-            <input
-              type="text"
-              id="company"
-              placeholder="Enter your company name"
-              class="mt-1 w-full border border-green-400 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-green-400"
-            />
-          </div>
         </div>
 
         <!-- Message -->
