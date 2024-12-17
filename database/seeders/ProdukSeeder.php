@@ -124,7 +124,7 @@ class ProdukSeeder extends Seeder
                 'produk_name' => 'VASELINE ADVANCED STRENGT 200 ML',
                 'harga' => 7000,
                 'deskripsi' => 'Lotion untuk kulit yang kering',
-                'kategori_id' => 3,
+                'kategori_id' => 4,
                 'stok' => 500,
                 'gambar' => 'Perawatan/VASELINE ADVANCED STRENGT 200 ML.png'
             ],
@@ -133,7 +133,7 @@ class ProdukSeeder extends Seeder
                 'produk_name' => 'VASELINE ALOE COOL FRESH 100 ML',
                 'harga' => 5000,
                 'deskripsi' => 'Lotion untuk kulit yang kering',
-                'kategori_id' => 3,
+                'kategori_id' => 4,
                 'stok' => 500,
                 'gambar' => 'Perawatan/VASELINE ALOE COOL FRESH 100 ML.png'
             ],
@@ -142,7 +142,7 @@ class ProdukSeeder extends Seeder
                 'produk_name' => 'ALKALINE AA-LR6',
                 'harga' => 4000,
                 'deskripsi' => 'Baterai untuk perangkat elektronik',
-                'kategori_id' => 3,
+                'kategori_id' => 5,
                 'stok' => 500,
                 'gambar' => 'Elektronik/ALKALINE AA-LR6.png'
             ],
