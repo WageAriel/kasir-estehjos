@@ -36,6 +36,12 @@ const trendStyle = computed(() => {
       style: 'warning'
     }
   }
+  if (props.trendType === 'danger') {
+    return {
+      icon: mdiAlertCircleOutline,
+      style: 'danger'
+    }
+  }
 
   return {
     style: 'info'

@@ -1,16 +1,23 @@
 <?php
 
-
+use App\Http\Controllers\DashboardController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\TransaksiController;
-use App\Http\Controllers\DashboardController;
 
 // Route::get('/', function () {
 //     return Inertia::render('LandingView');
 // })->name('landing');
+
+
+Route::get('/api/dashboard-data', [DashboardController::class, 'apiData']);
+Route::get('/api/monthly-chart-data', [DashboardController::class, 'monthlyChartData']);
+Route::get('/api/produk-stok-kurang', [DashboardController::class, 'getProdukStokKurang']);
+Route::get('/api/produk-stok-habis', [DashboardController::class, 'getProdukStokHabis']);
+
+
 
 Route::get('/', function () {
     return Inertia::render('Landing/LandingView', [

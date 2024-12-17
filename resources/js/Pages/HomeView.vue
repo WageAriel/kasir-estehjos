@@ -1,6 +1,8 @@
 <script setup>
 import { computed, ref, onMounted } from "vue";
 import { useMainStore } from "@/stores/main";
+import axios from 'axios';
+import MonthlyChart from "@/Components/Grafik/MonthlyChart.vue";
 import {
   mdiAccountMultiple,
   mdiCartOutline,
@@ -9,6 +11,8 @@ import {
   mdiReload,
   mdiGithub,
   mdiChartPie,
+  mdiAlertCircle,
+  mdiCashRegister,
 } from "@mdi/js";
 import LineChart from "@/Components/Charts/LineChart.vue";
 import SectionMain from "@/Components/SectionMain.vue";
@@ -39,6 +43,57 @@ const chartConfig = {
   },
 };
 
+const formatNumber = (value) => {
+  return new Intl.NumberFormat("id-ID").format(value); // Format Indonesia
+};
+
+const props = defineProps({
+    transaksi: { type: Array, default: () => [] },
+});
+
+const totalHarian = ref(0);
+const latestAmount = ref(0);
+const totalMingguan = ref(0);
+const pendapatanMingguanTerakhir = ref(0);
+const totalBulanan = ref(0);
+const pendapatanBulananTerakhir = ref(0);
+const produkStokKurang = ref([]);
+const produkStokHabis = ref([]);
+
+const fetchData = async () => {
+  try {
+    const response = await axios.get(`/api/dashboard-data?timestamp=${new Date().getTime()}`);
+    totalHarian.value = response.data.totalHarian;
+    latestAmount.value = response.data.latestAmount;
+    totalMingguan.value = response.data.totalMingguan;
+    pendapatanMingguanTerakhir.value = response.data.pendapatanMingguanTerakhir;
+    totalBulanan.value = response.data.totalBulanan;
+    pendapatanBulananTerakhir.value = response.data.pendapatanMingguanTerakhir;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+
+const fetchProdukStokKurang = async () => {
+  try {
+    const response = await fetch("/api/produk-stok-kurang");
+    const data = await response.json();
+    produkStokKurang.value = data.produkMenipis;
+  } catch (error) {
+    console.error("Error fetching produk:", error);
+  }
+};
+const fetchProdukStokHabis = async () => {
+  try {
+    const response = await fetch("/api/produk-stok-habis");
+    const data = await response.json();
+    produkStokHabis.value = data.produkHabis;
+  } catch (error) {
+    console.error("Error fetching produk:", error);
+  }
+};
+
+
 const chartData = ref(null);
 
 const fillChartData = () => {
@@ -47,6 +102,10 @@ const fillChartData = () => {
 
 onMounted(() => {
   fillChartData();
+  fetchData();
+  setInterval(fetchData, 5000);
+  fetchProdukStokKurang();
+  fetchProdukStokHabis();
 });
 
 const mainStore = useMainStore();
@@ -73,68 +132,60 @@ const transactionBarItems = computed(() => mainStore.history);
 
       <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 mb-6">
         <CardBoxWidget
-          trend="12%"
+          :trend="`+Rp ${formatNumber(latestAmount)}`"
           trend-type="up"
           color="text-emerald-500"
-          :icon="mdiAccountMultiple"
-          :number="512"
-          label="Clients"
+          :icon="mdiCashRegister"
+          :number="formatNumber(totalHarian)"
+          prefix="Rp "
+          label="Pendapatan Harian"
         />
         <CardBoxWidget
-          trend="12%"
-          trend-type="down"
-          color="text-blue-500"
-          :icon="mdiCartOutline"
-          :number="7770"
-          prefix="$"
-          label="Sales"
+          :trend="`+Rp ${formatNumber(pendapatanMingguanTerakhir)}`"
+          trend-type="up"
+          color="text-emerald-500"
+          :icon="mdiCashRegister"
+          :number="formatNumber(totalMingguan)"
+          prefix="Rp "
+          label="Pendapatan Mingguan"
         />
         <CardBoxWidget
-          trend="Overflow"
+          :trend="`+Rp ${formatNumber(pendapatanBulananTerakhir)}`"
+          trend-type="up"
+          color="text-emerald-500"
+          :icon="mdiCashRegister"
+          :number="formatNumber(totalBulanan)"
+          prefix="Rp "
+          label="Pendapatan Bulanan"
+        />
+      </div>
+      <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 mb-6">
+        <CardBoxWidget
+          v-for="(produk, index) in produkStokKurang"
+          :key="index"
+          :trend="`Stok: ${produk.stok}`"
           trend-type="alert"
+          color="text-amber-500"
+          :icon="mdiAlertCircle"
+          :prefix="produk.produk_name"
+          label="Produk"
+    />
+    <CardBoxWidget
+          v-for="(produk, index) in produkStokHabis"
+          :key="index"
+          :trend="`Stok: ${produk.stok}`"
+          trend-type="danger"
           color="text-red-500"
-          :icon="mdiChartTimelineVariant"
-          :number="256"
-          suffix="%"
-          label="Performance"
-        />
+          :icon="mdiAlertCircle"
+          :prefix="produk.produk_name"
+          label="Produk"
+    />
       </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-        <div class="flex flex-col justify-between">
-          <CardBoxTransaction
-            v-for="(transaction, index) in transactionBarItems"
-            :key="index"
-            :amount="transaction.amount"
-            :date="transaction.date"
-            :business="transaction.business"
-            :type="transaction.type"
-            :name="transaction.name"
-            :account="transaction.account"
-          />
-        </div>
-        <div class="flex flex-col justify-between">
-          <CardBoxClient
-            v-for="client in clientBarItems"
-            :key="client.id"
-            :name="client.name"
-            :login="client.login"
-            :date="client.created"
-            :progress="client.progress"
-          />
-        </div>
-      </div>
-
       <SectionBannerStarOnGitHub class="mt-6 mb-6" />
 
-      <SectionTitleLineWithButton :icon="mdiChartPie" title="Trends overview">
-        <BaseButton :icon="mdiReload" color="whiteDark" @click="fillChartData" />
-      </SectionTitleLineWithButton>
-
-      <CardBox class="mb-6">
-        <div v-if="chartData">
-          <line-chart :data="chartData" class="h-96" />
-        </div>
+      <SectionTitleLineWithButton :icon="mdiChartPie" title="Pendapatan Bulanan" />
+      <CardBox>
+        <MonthlyChart />
       </CardBox>
 
       <SectionTitleLineWithButton :icon="mdiAccountMultiple" title="Clients" />
