@@ -48,15 +48,6 @@ class ProdukSeeder extends Seeder
                 'gambar' => 'Sembako/Indomie Ayam Bawang.png'
             ],
             [
-                'produk_id' => '89686010107',
-                'produk_name' => 'Indomie Kaldu Ayam 65g',
-                'harga' => 2700,
-                'deskripsi' => 'Mi instan kuah dengan rasa kaldu ayam gurih.',
-                'kategori_id' => 1,
-                'stok' => 500,
-                'gambar' => 'Sembako/Sedap Soto.png'
-            ],
-            [
                 'produk_id' => '89686043990',
                 'produk_name' => 'Indomie Soto Lamongan 90g',
                 'harga' => 3200,
@@ -109,6 +100,51 @@ class ProdukSeeder extends Seeder
                 'kategori_id' => 1,
                 'stok' => 500,
                 'gambar' => 'Sembako/Indomie Ayam Bawang.png'
+            ],
+            [
+                'produk_id' => '8999908039309',
+                'produk_name' => 'OSKADON OBAT SAKIT KEPALA 4’SSTR',
+                'harga' => 4000,
+                'deskripsi' => 'Obat Sakit Kepala',
+                'kategori_id' => 3,
+                'stok' => 500,
+                'gambar' => 'Kesehatan/OSKADON OBAT SAKIT KEPALA 4’SSTR.png'
+            ],
+            [
+                'produk_id' => '8999908043801',
+                'produk_name' => 'OSKADON SP OBAT PEREDA NYERI 4’SSTR',
+                'harga' => 4500,
+                'deskripsi' => 'Obat Sakit Kepala & pereda nyeri',
+                'kategori_id' => 3,
+                'stok' => 500,
+                'gambar' => 'Kesehatan/OSKADON SP OBAT PEREDA NYERI 4’SSTR.png'
+            ],
+            [
+                'produk_id' => '8999999045579',
+                'produk_name' => 'VASELINE ADVANCED STRENGT 200 ML',
+                'harga' => 7000,
+                'deskripsi' => 'Lotion untuk kulit yang kering',
+                'kategori_id' => 3,
+                'stok' => 500,
+                'gambar' => 'Perawatan/VASELINE ADVANCED STRENGT 200 ML.png'
+            ],
+            [
+                'produk_id' => '8999999715069',
+                'produk_name' => 'VASELINE ALOE COOL FRESH 100 ML',
+                'harga' => 5000,
+                'deskripsi' => 'Lotion untuk kulit yang kering',
+                'kategori_id' => 3,
+                'stok' => 500,
+                'gambar' => 'Perawatan/VASELINE ALOE COOL FRESH 100 ML.png'
+            ],
+            [
+                'produk_id' => '8886022971298',
+                'produk_name' => 'ALKALINE AA-LR6',
+                'harga' => 4000,
+                'deskripsi' => 'Baterai untuk perangkat elektronik',
+                'kategori_id' => 3,
+                'stok' => 500,
+                'gambar' => 'Elektronik/ALKALINE AA-LR6.png'
             ],
         ];
 
