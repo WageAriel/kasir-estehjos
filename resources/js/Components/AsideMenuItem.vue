@@ -4,12 +4,12 @@ import { ref, computed } from 'vue'
 // import { RouterLink } from 'vue-router'
 import { mdiMinus, mdiPlus } from '@mdi/js'
 import { getButtonColor } from '@/colors.js'
-import { useDarkModeStore } from '@/Stores/darkMode.js'
+// import { useDarkModeStore } from '@/Stores/darkMode.js'
 import BaseIcon from '@/Components/BaseIcon.vue'
 import AsideMenuList from '@/Components/AsideMenuList.vue'
 
 // Mendapatkan store dark mode
-const darkModeStore = useDarkModeStore()
+// const darkModeStore = useDarkModeStore()
 
 // Add itemHref
 const itemHref = computed(() => (props.item.route ? route(props.item.route) : props.item.href))
@@ -17,8 +17,6 @@ const itemHref = computed(() => (props.item.route ? route(props.item.route) : pr
 // Add activeInactiveStyle
 const activeInactiveStyle = computed(() =>
   props.item.route && route().current(props.item.route)
-    ? darkModeStore.asideMenuItemActiveStyle
-    : ''
 )
 
 const props = defineProps({
@@ -34,7 +32,7 @@ const emit = defineEmits(['menu-click'])
 const hasColor = computed(() => props.item && props.item.color)
 
 const asideMenuItemActiveStyle = computed(() =>
-  hasColor.value ? '' : 'aside-menu-item-active font-bold'
+  hasColor.value ? '' : 'aside-menu-item-active text-black font-bold'
 )
 
 const isDropdownActive = ref(false)

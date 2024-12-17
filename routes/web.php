@@ -36,15 +36,9 @@ Route::get('/contact', function () {
     return Inertia::render('Landing/ContactView');
 })->name('contact');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('HomeView');
-  })->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware(['role:admin'])->group(function () {
 
-    Route::get('/dashboard', function () {
-        return Inertia::render('HomeView');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/dashboard/kasir', function () {
         return Inertia::render('KasirView');

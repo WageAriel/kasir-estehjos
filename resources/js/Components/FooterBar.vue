@@ -1,22 +1,17 @@
-<template>
-    <footer class="bg-gray-800 text-white py-4 text-center">
-        <p>&copy; 2024 Kasir Estehjos. All rights reserved.</p>
-    </footer>
-</template>
+<script setup>
+import { containerMaxW } from '@/config.js'
+import BaseLevel from '@/Components/BaseLevel.vue'
 
-<script>
-    export default {
-        name: "FooterBar",
-    };
-
+const year = new Date().getFullYear()
 </script>
 
-<style scoped>
-    footer {
-        background-color: #2d3748;
-        /* Warna abu-abu gelap */
-        color: #ffffff;
-        /* Warna teks putih */
-    }
-
-</style>
+<template>
+  <footer class="py-2 px-6" :class="containerMaxW">
+    <BaseLevel>
+      <div class="text-center md:text-left">
+        <b>&copy;{{ year }}.<a href="">Vendor Cowo Imut</a></b>
+        <slot />
+      </div>
+    </BaseLevel>
+  </footer>
+</template>
