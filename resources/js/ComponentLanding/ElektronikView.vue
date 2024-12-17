@@ -1,9 +1,9 @@
 <template>
     <MainLayout>
-        <makanan/>
+        <Elektronik/>
     </MainLayout>
   </template>
 
 <script setup lang="ts">
-  import makanan from '@/ComponentUser/pemesanan/makanan.vue';
+  import Elektronik from '@/ComponentUser/pemesanan/Elektronik.vue';
 </script>

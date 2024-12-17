@@ -44,6 +44,54 @@ public function getMinuman()
 
     return response()->json([]);
 }
+public function getKesehatan()
+{
+    // Mengambil kategori 'Sembako' berdasarkan nama kategori
+    $kategoriKesehatan = Kategori::where('kategori', 'Kesehatan')->first();
+
+    if ($kategoriKesehatan) {
+        // Mengambil produk dengan kategori 'Kesehatan'
+        $produkKesehatan = Produk::where('kategori_id', $kategoriKesehatan->kategori_id)
+            ->with('kategori')
+            ->get();
+
+        return response()->json($produkKesehatan);
+    }
+
+    return response()->json([]);
+}
+public function getPerawatanPribadi()
+{
+    // Mengambil kategori 'Sembako' berdasarkan nama kategori
+    $kategoriPerawatanPribadi = Kategori::where('kategori', 'Perawatan Pribadi')->first();
+
+    if ($kategoriPerawatanPribadi) {
+        // Mengambil produk dengan kategori 'PerawatanPribadi'
+        $produkPerawatanPribadi = Produk::where('kategori_id', $kategoriPerawatanPribadi->kategori_id)
+            ->with('kategori')
+            ->get();
+
+        return response()->json($produkPerawatanPribadi);
+    }
+
+    return response()->json([]);
+}
+public function getElektronik()
+{
+    // Mengambil kategori 'Sembako' berdasarkan nama kategori
+    $kategoriElektronik = Kategori::where('kategori', 'Elektronik')->first();
+
+    if ($kategoriElektronik) {
+        // Mengambil produk dengan kategori 'Elektronik'
+        $produkElektronik = Produk::where('kategori_id', $kategoriElektronik->kategori_id)
+            ->with('kategori')
+            ->get();
+
+        return response()->json($produkElektronik);
+    }
+
+    return response()->json([]);
+}
 
 public function getAllProducts()
 {

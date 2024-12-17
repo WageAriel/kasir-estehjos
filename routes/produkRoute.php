@@ -11,6 +11,9 @@ Route::middleware(['role:admin'])->group(function () {
 Route::get('/produk/search', [ProdukController::class, 'search'])->name('produk.search');
 Route::get('/produk/sembako', [ProdukController::class, 'getSembako'])->name('produk.sembako');
 Route::get('/produk/minuman', [ProdukController::class, 'getMinuman'])->name('produk.Minuman');
+Route::get('/produk/kesehatan', [ProdukController::class, 'getKesehatan'])->name('produk.Kesehatan');
+Route::get('/produk/perawatanPribadi', [ProdukController::class, 'getPerawatanPribadi'])->name('produk.PerawatanPribadi');
+Route::get('/produk/elektronik', [ProdukController::class, 'getElektronik'])->name('produk.Elektronik');
 Route::post('/reduce-stock', [ProdukController::class, 'reduceStock'])
     ->name('produk.reduce-stock');
 Route::get('/produk/all', [ProdukController::class, 'getAllProducts'])->name('produk.all');

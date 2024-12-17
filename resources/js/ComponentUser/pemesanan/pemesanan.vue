@@ -6,7 +6,7 @@
                     <div class="flex flex-col max-md:mt-10">
                         <div data-layername="minumanMakananSembako"
                             class="self-start text-base leading-snug text-stone-800 text-opacity-70 max-md:ml-2.5">
-                            Minuman/Makanan/Sembako
+                            Aneka Barang Disini
                         </div>
                         <div data-layername="filtres" class="flex flex-col mt-9 w-full">
                             <div class="flex gap-8 justify-between items-center max-w-full w-[360px]">
@@ -118,8 +118,11 @@
     } from "vue";
     import Sembako from "@/ComponentUser/pemesanan/Sembako.vue";
     import Minuman from "@/ComponentUser/pemesanan/Minuman.vue";
+    import Kesehatan from "@/ComponentUser/pemesanan/Kesehatan.vue";
+    import Perawatan from "@/ComponentUser/pemesanan/Perawatan.vue";
+    import Elektronik from "@/ComponentUser/pemesanan/Elektronik.vue";
     import {
-        ChevronDownIcon
+        ChevronRightIcon
     } from "@heroicons/vue/24/solid";
     import axios from "axios";
 
@@ -127,18 +130,36 @@
         components: {
             Sembako,
             Minuman,
+            Kesehatan,
+            Perawatan,
+            Elektronik,
         },
         setup() {
             // Data untuk items
             const items = [{
                     label: "Sembako",
                     component: "Sembako",
-                    icon: ChevronDownIcon
+                    icon: ChevronRightIcon
                 },
                 {
                     label: "Minuman",
                     component: "Minuman",
-                    icon: ChevronDownIcon
+                    icon: ChevronRightIcon
+                },
+                {
+                    label: "Kesehatan",
+                    component: "Kesehatan",
+                    icon: ChevronRightIcon
+                },
+                {
+                    label: "Perawatan",
+                    component: "Perawatan",
+                    icon: ChevronRightIcon
+                },
+                {
+                    label: "Elektronik",
+                    component: "Elektronik",
+                    icon: ChevronRightIcon
                 },
             ];
             const searchQuery = ref('');
@@ -151,6 +172,12 @@
                     filtered = filtered.filter(item => item.kategori === 'Sembako');
                 } else if (isFiltering.value && currentView.value === 'Minuman') {
                     filtered = filtered.filter(item => item.kategori === 'Minuman');
+                } else if (isFiltering.value && currentView.value === 'Kesehatan') {
+                    filtered = filtered.filter(item => item.kategori === 'Kesehatan');
+                } else if (isFiltering.value && currentView.value === 'Perawatan') {
+                    filtered = filtered.filter(item => item.kategori === 'Perawatan');
+                } else if (isFiltering.value && currentView.value === 'Elektronik') {
+                    filtered = filtered.filter(item => item.kategori === 'Elektronik');
                 }
 
                 // Filter berdasarkan kata kunci pencarian
