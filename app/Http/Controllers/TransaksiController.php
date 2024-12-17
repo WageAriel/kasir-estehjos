@@ -58,43 +58,76 @@ class TransaksiController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'tanggal_transaksi' => 'required|date',
-            'total_jumlah' => 'required|numeric',
-            'metode_pembayaran' => 'required|string',
-            'kembalian' => 'required|numeric',
-            'products' => 'required|array',
-            'products.*.produk_id' => 'required|exists:produk,produk_id',
-            'products.*.jumlah' => 'required|integer',
-            'products.*.subtotal' => 'required|numeric',
-        ]);
-
-        DB::beginTransaction();
         try {
-            // Create main transaction
-            $transaksi = Transaksi::create([
-                'tanggal_transaksi' => $request->tanggal_transaksi,
-                'total_jumlah' => $request->total_jumlah,
-                'metode_pembayaran' => $request->metode_pembayaran,
-                'kembalian' => $request->kembalian,
+            $validated = $request->validate([
+                'customer_name' => 'required|string',
+                'payment_proof' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+                'tanggal_transaksi' => 'required|date',
+                'total_jumlah' => 'required|numeric',
+                'metode_pembayaran' => 'required|string',
+                'kembalian' => 'required|numeric',
+                'products' => 'required|array',
+                'products.*.produk_id' => 'required|exists:produk,produk_id',
+                'products.*.jumlah' => 'required|integer',
+                'products.*.subtotal' => 'required|numeric',
             ]);
 
-            // Create transaction details for each product
-            foreach ($request->products as $product) {
-                DetailTransaksi::create([
-                    'transaksi_id' => $transaksi->transaksi_id,
-                    'produk_id' => $product['produk_id'],
-                    'jumlah' => $product['jumlah'],
-                    'subtotal' => $product['subtotal'],
-                ]);
-            }
+            \Log::info('Received transaction data:', $request->all()); // Logging
 
-            DB::commit();
-return Redirect::route('receipt.show', $transaksi->transaksi_id)
-    ->with('success', 'Transaksi berhasil ditambahkan');
-        } catch (\Exception $e) {
-            DB::rollback();
-            return Redirect::back()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan transaksi']);
+            DB::beginTransaction();
+            try {
+                // Handle file upload
+                $fileName = null;
+                if ($request->hasFile('payment_proof')) {
+                    $file = $request->file('payment_proof');
+                    $fileName = time() . '.' . $file->getClientOriginalExtension();
+                    $file->storeAs('public/payment_proofs', $fileName);
+                    \Log::info('File uploaded:', ['name' => $fileName]); // Logging
+                }
+
+                // Create main transaction
+                $transaksi = Transaksi::create([
+                    'customer_name' => $request->customer_name,
+                    'payment_proof' => $fileName,
+                    'tanggal_transaksi' => $request->tanggal_transaksi,
+                    'total_jumlah' => $request->total_jumlah,
+                    'metode_pembayaran' => $request->metode_pembayaran,
+                    'kembalian' => $request->kembalian,
+                ]);
+
+                \Log::info('Transaction created:', $transaksi->toArray()); // Logging
+
+                // Create transaction details
+                foreach ($request->products as $product) {
+                    DetailTransaksi::create([
+                        'transaksi_id' => $transaksi->transaksi_id,
+                        'produk_id' => $product['produk_id'],
+                        'jumlah' => $product['jumlah'],
+                        'subtotal' => $product['subtotal'],
+                    ]);
+                }
+
+                DB::commit();
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Transaksi berhasil',
+                    'data' => $transaksi
+                ]);
+            } catch (\Exception $e) {
+                DB::rollback();
+                \Log::error('Transaction error:', ['error' => $e->getMessage()]); // Logging
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+                ], 500);
+            }
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            \Log::error('Validation error:', $e->errors()); // Logging
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors' => $e->errors()
+            ], 422);
         }
     }
 
@@ -119,7 +152,7 @@ return Redirect::route('receipt.show', $transaksi->transaksi_id)
     {
         // Load the transaction with its related data
         $transaksi->load(['detailTransaksi.produk']);
-        
+
         return Inertia::render('ReceiptView', [
             'transaksi' => $transaksi
         ]);
