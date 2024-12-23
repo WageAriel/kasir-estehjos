@@ -84,7 +84,7 @@ formData.append('payment_proof', form.payment_proof);
 
         console.log('Sending data:', Object.fromEntries(formData)); // Untuk debugging
 
-        const response = await axios.post(route('transaksi.store'), formData, {
+        const response = await axios.post(route('transaksi.storeOnline'), formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

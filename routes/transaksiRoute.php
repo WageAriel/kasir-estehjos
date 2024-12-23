@@ -9,6 +9,7 @@ Route::middleware(['role:admin'])->group(function () {
     Route::delete('dashboard/transaksi/{transaksi}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy');
 });
 Route::post('dashboard/transaksi', [TransaksiController::class, 'store'])->name('transaksi.store');
+Route::post('transaksi-online', [TransaksiController::class, 'storeOnline'])->name('transaksi.storeOnline');
 Route::get('/transaksi/{transaksi}/receipt', [TransaksiController::class, 'showReceipt'])->name('receipt.show');
 // Route::get('/data-transaksi', [TransaksiController::class, 'getAllTransaksi']);
 
