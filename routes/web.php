@@ -21,14 +21,9 @@ Route::get('/api/produk-stok-habis', [DashboardController::class, 'getProdukStok
 
 
 
-Route::get('/', function () {
-    return Inertia::render('Landing/LandingView', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-})->name('landing');
+// Route::get('/', function () {
+//     return Inertia::render('Landing/LandingView');
+// })->name('landing');
 
 Route::get('/pemesanan', function () {
     return Inertia::render('Landing/pemesananView');

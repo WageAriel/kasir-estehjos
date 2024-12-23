@@ -31,6 +31,7 @@ const formattedDate = computed(() => {
 
 const form = useForm({
     transaksi_id: '',
+    customer_name: '',
     tanggal_transaksi: '',
     total_jumlah: '',
     metode_pembayaran: '',
@@ -106,6 +107,7 @@ function exportToCSV() {
 
 function openDetailModal(transaksiData) {
     form.transaksi_id = transaksiData.transaksi_id;
+    form.customer_name = transaksiData.customer_name;
     form.tanggal_transaksi = transaksiData.tanggal_transaksi;
     form.total_jumlah = transaksiData.total_jumlah;
     form.metode_pembayaran = transaksiData.metode_pembayaran;

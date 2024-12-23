@@ -48,6 +48,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('landing', absolute: false));
+        return redirect(route('feedback.index', absolute: false));
     }
 }

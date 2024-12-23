@@ -61,6 +61,7 @@ class TransaksiController extends Controller
         try {
             $validated = $request->validate([
                 'customer_name' => 'nullable|string',
+                'payment_proof' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
                 'tanggal_transaksi' => 'required|date',
                 'total_jumlah' => 'required|numeric',
                 'metode_pembayaran' => 'required|string',

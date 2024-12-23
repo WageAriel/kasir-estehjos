@@ -24,6 +24,6 @@ class CheckRole
         }
 
         // Redirect atau respon jika tidak memiliki akses
-        return redirect()->intended(route('landing'));
+        return redirect()->intended('/');
     }
 }
