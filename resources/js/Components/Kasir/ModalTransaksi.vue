@@ -12,7 +12,7 @@
             required: true
         },
         isModalOpen: Boolean,
-        totalPayment: Number // Properti totalPayment diterima dari parent
+        totalPayment: Number 
     });
 
     const emit = defineEmits(['close-modal']);
@@ -24,12 +24,12 @@
         change: 0
     });
 
-    // Sinkronisasi totalPayment dari props ke form.totalPayment
+    
     watch(() => props.totalPayment, (newValue) => {
         form.totalPayment = newValue;
     });
 
-    // Hitung kembalian secara otomatis saat amountGiven berubah
+    
     watch(() => form.amountGiven, () => {
         calculateChange();
     });
@@ -47,7 +47,7 @@
     }
 
     function handleConfirmTransaction() {
-        // Membuat objek transaksi
+        
         const transaction = {
             tanggal_transaksi: new Date().toISOString().split('T')[0],
             total_jumlah: form.totalPayment,
@@ -60,17 +60,17 @@
             }))
         };
 
-        // Kirim data transaksi ke server menggunakan route transaksi.store
+        
+        // Kirim data ke backend
         router.post(route('transaksi.store'), transaction, {
             onSuccess: () => {
-                // Cetak struk menggunakan fungsi printReceipt yang sudah ada
-                printReceipt();
-                closeModal();
+                // Redirect ke halaman transaksi setelah sukses
+                router.visit(route('transaksi'));
             },
             onError: (errors) => {
                 console.error('Transaction error:', errors);
             },
-            preserveScroll: true // Tambahkan ini agar scroll position tetap
+            preserveScroll: true
         });
     }
 
@@ -81,7 +81,7 @@
         window.print();
         document.body.innerHTML = originalContent;
 
-        // Reduce stock after printing
+        
         router.post(route('produk.reduce-stock'), {
             products: props.products.map(product => ({
                 produk_id: product.produk_id,
@@ -93,7 +93,7 @@
             },
             onError: (errors) => {
                 console.error('Stock reduction error:', errors);
-                // Optionally show error to user
+                
             }
         });
     }

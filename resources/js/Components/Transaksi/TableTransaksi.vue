@@ -238,6 +238,7 @@ watch([filterType, selectedDate, selectedPaymentMethod], ([newFilterType, newSel
         <table class="table-auto w-full border-collapse border border-gray-200">
             <thead>
                 <tr>
+                    <th class="border px-4 py-2">Nama Customer</th>
                     <th class="border px-4 py-2">Tanggal Transaksi</th>
                     <th class="border px-4 py-2">Jumlah Produk</th>
                     <th class="border px-4 py-2">Total</th>
@@ -248,6 +249,7 @@ watch([filterType, selectedDate, selectedPaymentMethod], ([newFilterType, newSel
             </thead>
             <tbody>
                 <tr v-for="transaksiData in filteredTransaksi" :key="transaksiData.transaksi_id">
+                    <td class="border px-4 py-2">{{ transaksiData.customer_name }}</td>
                     <td class="border px-4 py-2">{{ transaksiData.tanggal_transaksi }}</td>
                     <td class="border px-4 py-2">{{ transaksiData.detail_transaksi.length }} produk</td>
                     <td class="border px-4 py-2">Rp{{ transaksiData.total_jumlah }}</td>
